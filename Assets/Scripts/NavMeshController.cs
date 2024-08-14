@@ -20,6 +20,8 @@ public class NavMeshController : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
 
+        playerPosition = GameObject.Find("Player").transform;
+
         originalPosition = transform.position;
 
         // Ajustar velocidad con una ligera variación

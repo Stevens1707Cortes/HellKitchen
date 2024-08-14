@@ -15,6 +15,11 @@ public class ZoneDetection : MonoBehaviour
     private float timeCheck;
     private string detectedZoneTag = "";
 
+    private void Start()
+    {
+        player = GameObject.Find("Player").transform;
+    }
+
     private void Update()
     {
         timeCheck += Time.deltaTime;
