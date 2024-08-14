@@ -56,7 +56,7 @@ public class Gun : MonoBehaviour
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
             if (rb != null)
             {
-                rb.velocity = direction.normalized * 50f; // Ajusta la velocidad según sea necesario
+                rb.velocity = direction.normalized * 60f; // Ajusta la velocidad según sea necesario
             }
         }
     }

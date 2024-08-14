@@ -12,7 +12,7 @@ public class BulletPooling : MonoBehaviour
 
     void InstantiateBullets()
     {
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 3; i++)
         {
             GameObject bullet = Instantiate(bulletPrefab);
             bullet.SetActive(false);
