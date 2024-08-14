@@ -209,7 +209,7 @@ GameObject:
   m_Layer: 0
   m_Name: Enemy_Kamikaze
   m_TagString: Enemy
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -279,6 +279,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPosition: {fileID: 0}
   animator: {fileID: 1093816943}
+  actionZone: Zone1
   randomOffsetRange: 1
   speedVariation: 0.2
 --- !u!195 &1093816948

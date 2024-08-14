@@ -7,11 +7,13 @@ public class ZoneDetection : MonoBehaviour
     [SerializeField] private float zoneRadius = 10f;
     [SerializeField] private LayerMask playerMask;
     [SerializeField] private float checkInterval = 0.5f;
+
     [SerializeField] private Transform[] zoneCenters; // Zonas para realizar la detección
-    [SerializeField] NavMeshController navMeshController;
+    [SerializeField] private string[] zoneTags; 
+    [SerializeField] private NavMeshController[] navMeshControllers; 
 
     private float timeCheck;
-    private bool playerDetected = false;
+    private string detectedZoneTag = "";
 
     private void Update()
     {
@@ -20,28 +22,32 @@ public class ZoneDetection : MonoBehaviour
         if (timeCheck >= checkInterval)
         {
             bool detected = false;
+            string newDetectedZoneTag = "";
 
-            foreach (Transform zoneCenter in zoneCenters)
+            for (int i = 0; i < zoneCenters.Length; i++)
             {
-                if (Vector3.Distance(transform.position, zoneCenter.position) < detectionRadius)
-                {   
-                    detected = DetectPlayer(zoneCenter.position);
-                    if (detected)
+                if (Vector3.Distance(transform.position, zoneCenters[i].position) < detectionRadius)
+                {
+                    if (DetectPlayer(zoneCenters[i].position, zoneTags[i]))
                     {
-                        // Detener la comprobación si ya se detectó al jugador
-                        break; 
+                        detected = true;
+                        newDetectedZoneTag = zoneTags[i];
+                        break;
                     }
                 }
             }
 
-            //Jugador no detectado
-            if (playerDetected && !detected)
+            // Si se detectó al jugador en una nueva zona, notificar al NavMeshController
+            if (detected && detectedZoneTag != newDetectedZoneTag)
             {
-                playerDetected = false;
-                if (navMeshController)
-                {
-                    navMeshController.PlayerDetected(false);
-                }
+                detectedZoneTag = newDetectedZoneTag;
+                NotifyNavMeshControllers(true, detectedZoneTag);
+            }
+            // Si el jugador fue detectado pero ya no está en ninguna zona, notificar al NavMeshController
+            else if (!detected && detectedZoneTag != "")
+            {
+                detectedZoneTag = "";
+                NotifyNavMeshControllers(false);
             }
 
             timeCheck = 0f;
@@ -50,25 +56,16 @@ public class ZoneDetection : MonoBehaviour
 
     }
 
-    bool DetectPlayer(Vector3 zoneCenter)
+    bool DetectPlayer(Vector3 zoneCenter, string zoneTag)
     {
         Collider[] hitColliders = Physics.OverlapSphere(zoneCenter, zoneRadius, playerMask);
 
         foreach (Collider collider in hitColliders)
         {
-            if (collider.transform == player)
+            if (collider.CompareTag("Player") && collider.transform == player)
             {
-                Debug.Log("Jugador detectado en zona");
+                //Debug.Log("Jugador detectado en zona");
 
-                if (!playerDetected)
-                {
-                    playerDetected = true;
-
-                    if(navMeshController != null)
-                    {
-                        navMeshController.PlayerDetected(true);
-                    }
-                }
                 return true;
             }
         }
@@ -85,6 +82,14 @@ public class ZoneDetection : MonoBehaviour
         foreach (Transform zoneCenter in zoneCenters)
         {
             Gizmos.DrawWireSphere(zoneCenter.position, zoneRadius);
+        }
+    }
+
+    void NotifyNavMeshControllers(bool detected, string zoneTag = "")
+    {
+        foreach (var controller in navMeshControllers)
+        {
+            controller.PlayerDetected(detected, zoneTag);
         }
     }
 }
