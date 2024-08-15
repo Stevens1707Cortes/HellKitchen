@@ -4,8 +4,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class Pickup : MonoBehaviour
-{
-
+{   
+    public string foodName;
     public Transform pickupPoint;
     // Start is called before the first frame update
     void Start()
@@ -13,7 +13,6 @@ public class Pickup : MonoBehaviour
         pickupPoint = GameObject.Find("Pickup Holder").GetComponent<Transform>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
     }
 
     // Update is called once per frame
