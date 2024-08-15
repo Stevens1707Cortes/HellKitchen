@@ -4,10 +4,10 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] protected int health;
     [SerializeField] protected int damage;
-    [SerializeField] protected string enemyName;
+    public string enemyName;
     [SerializeField] protected Animator enemyAnimator;
 
-
+    [SerializeField] protected EnemyManager enemyManager;
     [SerializeField] protected NavMeshController navMeshController;
 
     //Maquina de estados
@@ -19,6 +19,10 @@ public class Enemy : MonoBehaviour
         navMeshController = gameObject.GetComponent<NavMeshController>();
         enemyAnimator = GetComponent<Animator>();
         currentState = State.Idle;
+
+        //Conteo de enemigos
+        enemyManager = FindObjectOfType<EnemyManager>();
+        enemyManager.RegisterEnemy(gameObject);
     }
 
     protected virtual void Update()
@@ -112,6 +116,7 @@ public class Enemy : MonoBehaviour
     }
     public virtual void Die() 
     {
+        enemyManager.UnregisterEnemy(gameObject);
         navMeshController.StopAgent();
         enemyAnimator.SetBool("isDead", true);
         Invoke("DisableEnemy",3f);
@@ -121,4 +126,5 @@ public class Enemy : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+
 }

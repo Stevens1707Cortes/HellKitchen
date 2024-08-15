@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8959413878456754795}
   m_Layer: 0
   m_Name: SK_EnemyKamikadze
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 3906772711904269714}
   m_Layer: 0
   m_Name: EnemyKamikadze
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -321,6 +321,7 @@ MonoBehaviour:
   damage: 10
   enemyName: 
   enemyAnimator: {fileID: 0}
+  enemyManager: {fileID: 0}
   navMeshController: {fileID: 0}
   currentState: 0
 --- !u!1 &4522316678114307131

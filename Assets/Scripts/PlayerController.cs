@@ -8,9 +8,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private WeaponChange weaponSwitcher;
 
     [Header("Player Stats")]
-    [SerializeField] private int health = 100;
-    [SerializeField] private int armor = 100;
+    [SerializeField] private int health;
+    [SerializeField] private int armor;
     private int currentWeaponIndex = 0;
+    private bool isDead = false;
 
     [Header("Player Config")]
     [SerializeField] private float speed = 12f;
@@ -21,10 +22,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private List<GameObject> weapons = new List<GameObject>();
     [SerializeField] private List<Transform> weaponTransforms = new List<Transform>();
 
+    [Header("Damage Settings")]
+    [SerializeField] private float damageCooldown = 5f; 
+    private bool canTakeDamage = true;
+    [SerializeField] protected EnemyManager enemyManager;
 
     private Vector3 velocity;           
     private bool isGrounded;
     private bool isChangingWeapon = false;
+    public bool isVictory = false;
 
     void Start()
     {   
@@ -32,7 +38,9 @@ public class PlayerController : MonoBehaviour
         {
             weapons[0].SetActive(true);
             weapons[1].SetActive(false);
-        } 
+        }
+
+        enemyManager = FindObjectOfType<EnemyManager>();
     }
 
     void Update()
@@ -64,16 +72,17 @@ public class PlayerController : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         //Cambio de arma
-        //if (Input.GetKeyDown(KeyCode.Q))
-        //{
-        //    ChangeWeapon();
-        //}
 
         if (Input.GetKeyDown(KeyCode.Q) && !isChangingWeapon)
         {
             StartCoroutine(ChangeWeapon());
         }
 
+        //Comprobar condicion de victoria 1
+        Victory();
+
+        //Comprobar condicion de derrota 1
+        GameOver();
     }
 
     private IEnumerator ChangeWeapon()
@@ -94,13 +103,68 @@ public class PlayerController : MonoBehaviour
         isChangingWeapon = false;
     }
 
-    //private void ChangeWeapon()
-    //{
-    //    weapons[currentWeaponIndex].SetActive(false);
+    public void PlayerTakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0) 
+        { 
+            PlayerDie();
+        }
+    }
 
-    //    //Usando el modulo, incrementamos el indice y reinice cuando llegue al final de la lista
-    //    currentWeaponIndex = (currentWeaponIndex + 1) % weapons.Count;
+    public void PlayerDie()
+    {
+        isDead = true;
+    }
 
-    //    weapons[currentWeaponIndex].SetActive(true);
-    //}
+    public void Victory()
+    {
+        //Conteo de enemigos en el nivel
+        if (enemyManager.GetActiveEnemyCount() <= 0)
+        {
+            isVictory = true;
+            Debug.Log("Nivel Superado");
+        }
+    }
+
+    public void GameOver()
+    {
+        if (isDead)
+        {
+            Debug.Log("El jugador esta muerto");
+            //Pantalla de derrota
+        }
+    }
+
+    private IEnumerator HandleDamageCooldown(int damage)
+    {
+        // Deshabilitar el daño mientras se espera el cooldown
+        canTakeDamage = false; 
+        PlayerTakeDamage(damage);
+        Debug.Log("Enemigo colisionado. Vida restante: " + health);
+
+        // Esperar para volver a recibir daño
+        yield return new WaitForSeconds(damageCooldown); 
+        canTakeDamage = true;
+    }
+
+    //Colisiones
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.collider.CompareTag("Enemy") && canTakeDamage)
+        {
+            string name = hit.gameObject.GetComponent<Enemy>().enemyName;
+
+            switch (name)
+            {
+                case "Kamikaze":
+                    StartCoroutine(HandleDamageCooldown(20));
+                    break;
+                default:
+                    StartCoroutine(HandleDamageCooldown(0));
+                    break;
+            }
+        }
+    }
 }

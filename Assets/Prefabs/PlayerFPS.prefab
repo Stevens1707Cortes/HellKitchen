@@ -1,5 +1,51 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &178614074
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 178614075}
+  - component: {fileID: 178614076}
+  m_Layer: 3
+  m_Name: Collider
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &178614075
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 178614074}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2357226977526152632}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &178614076
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 178614074}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 2
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2357226975745278328
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,7 +56,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2357226975745278329}
   - component: {fileID: 2357226975745278330}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Firepoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +102,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2357226976551503379}
   - component: {fileID: 2357226976551503380}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Firepoint2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +149,7 @@ GameObject:
   - component: {fileID: 2357226976959250365}
   - component: {fileID: 2357226976959250367}
   - component: {fileID: 2357226976959250366}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Sight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +224,7 @@ GameObject:
   - component: {fileID: 2357226976993265856}
   - component: {fileID: 2357226976993265859}
   - component: {fileID: 2357226976993265860}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -295,7 +341,7 @@ GameObject:
   - component: {fileID: 2357226977091318492}
   - component: {fileID: 2357226977091318491}
   - component: {fileID: 2357226977091318490}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: HUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -396,14 +442,13 @@ GameObject:
   - component: {fileID: 2357226977526152632}
   - component: {fileID: 2357226977526152615}
   - component: {fileID: 2357226977526152614}
-  - component: {fileID: 2357226977526152613}
   - component: {fileID: 2357226977526152612}
   - component: {fileID: 2357226977526152633}
   - component: {fileID: 2357226977526152634}
-  m_Layer: 0
-  m_Name: Player 1
+  m_Layer: 3
+  m_Name: PlayerFPS
   m_TagString: Player
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -421,6 +466,7 @@ Transform:
   m_Children:
   - {fileID: 2357226977091318489}
   - {fileID: 2357226976993265858}
+  - {fileID: 178614075}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -474,20 +520,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &2357226977526152613
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2357226977526152611}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!143 &2357226977526152612
 CharacterController:
   m_ObjectHideFlags: 0
@@ -500,7 +532,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 2
-  m_Radius: 0.5
+  m_Radius: 1.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -520,8 +552,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 2357226977526152612}
   weaponSwitcher: {fileID: 2357226977526152634}
-  health: 0
-  armor: 0
+  health: 100
+  armor: 100
   speed: 6
   gravity: -9.81
   jumpHeight: 3
@@ -531,6 +563,9 @@ MonoBehaviour:
   weaponTransforms:
   - {fileID: 2827191905397463033}
   - {fileID: 2827191906410504269}
+  damageCooldown: 1
+  enemyManager: {fileID: 0}
+  isVictory: 0
 --- !u!114 &2357226977526152634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -614,6 +649,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 38064c4315b2f6b41989f07a7ff71c62, type: 3}
       propertyPath: m_Name
       value: S_Shotgun
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 38064c4315b2f6b41989f07a7ff71c62, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 38064c4315b2f6b41989f07a7ff71c62, type: 3}
       propertyPath: m_IsActive
@@ -725,6 +764,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 877744bf90e0660498fdf8b2cc51f404, type: 3}
       propertyPath: m_Name
       value: S_Plasmagun
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 877744bf90e0660498fdf8b2cc51f404, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 877744bf90e0660498fdf8b2cc51f404, type: 3}
       propertyPath: m_IsActive

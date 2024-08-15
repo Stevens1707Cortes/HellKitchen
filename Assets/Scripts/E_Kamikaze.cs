@@ -1,8 +1,7 @@
 using UnityEngine;
 
 public class E_Kamikaze : Enemy
-{   
-
+{
     protected override void Start()
     {   
         base.Start();
@@ -16,6 +15,7 @@ public class E_Kamikaze : Enemy
         {
             this.TakeDamage(20);
         }
+        
     }
 
 }

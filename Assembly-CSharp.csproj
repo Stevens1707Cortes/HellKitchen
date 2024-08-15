@@ -78,6 +78,10 @@
     <Compile Include="Assets\TransformationZone.cs" />
     <Compile Include="Assets\Pickup.cs" />
     <Compile Include="Assets\CamMovement.cs" />
+    <Compile Include="Assets\Scripts\EnemyManager.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\AudioManager.cs" />
+    <Compile Include="Assets\Scripts\UIManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
