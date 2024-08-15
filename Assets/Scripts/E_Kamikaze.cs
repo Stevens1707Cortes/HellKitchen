@@ -1,18 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class E_Kamikaze : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+public class E_Kamikaze : Enemy
+{   
+
+    protected override void Start()
+    {   
+        base.Start();
+        this.enemyName = "Kamikaze";
+
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnCollisionEnter(Collision collision)
     {
-        
+        if (collision.gameObject.CompareTag("Bullet")) 
+        {
+            this.TakeDamage(20);
+        }
     }
+
 }

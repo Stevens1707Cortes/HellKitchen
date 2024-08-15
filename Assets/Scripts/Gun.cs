@@ -24,7 +24,6 @@ public class Gun : MonoBehaviour
 
     public virtual void Shoot()
     {
-        Debug.Log("Disparando " + gunName);
 
         // Convertir la posición de la mira en un rayo en el mundo 3D
         Ray ray = Camera.main.ScreenPointToRay(sightCanvas.position);

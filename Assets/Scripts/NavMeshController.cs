@@ -30,30 +30,10 @@ public class NavMeshController : MonoBehaviour
 
     void Update()
     {
-        if (playerDetected)
-        {
-            if (detectedZoneTag == actionZone)
-            {
-                MoveEnemy();
-            }
-            else
-            {
-                ReturnOriginalPosition();
-            }
-        }
-
-        // Activar o desactivar la animación en función de la velocidad del agente
-        if (agent.velocity.magnitude > 0.1f)
-        {
-            animator.SetBool("isMoving", true);
-        }
-        else
-        {
-            animator.SetBool("isMoving", false);
-        }
+        
     }
 
-    void MoveEnemy()
+    public void MoveEnemy()
     {
         // Añadir un desplazamiento aleatorio al destino
         Vector3 randomOffset = new Vector3(
@@ -67,7 +47,7 @@ public class NavMeshController : MonoBehaviour
 
     }
 
-    void ReturnOriginalPosition()
+    public void ReturnOriginalPosition()
     {
         // Compara la distancia entre la posición actual y la original
         if (Vector3.Distance(transform.position, originalPosition) < 0.2f)
@@ -88,9 +68,30 @@ public class NavMeshController : MonoBehaviour
         playerDetected = detected;
         detectedZoneTag = zoneTag;
 
-        if (!detected)
-        {
-            ReturnOriginalPosition();
-        }
+        //if (!detected)
+        //{
+        //    ReturnOriginalPosition();
+        //}
     }
+
+    public bool IsPlayerDetected()
+    {
+        return playerDetected && detectedZoneTag == actionZone;
+    }
+
+    public bool HasReturnedToOriginalPosition()
+    {
+        return Vector3.Distance(transform.position, originalPosition) < 0.2f;
+    }
+
+    public bool IsMoving()
+    {
+        return agent.velocity.magnitude > 0.1f;
+    }
+
+    public void StopAgent()
+    {
+        agent.isStopped = true;
+    }
+
 }
