@@ -114,5 +114,11 @@ public class Enemy : MonoBehaviour
     {
         navMeshController.StopAgent();
         enemyAnimator.SetBool("isDead", true);
+        Invoke("DisableEnemy",3f);
+    }
+
+    public virtual void DisableEnemy()
+    {
+        gameObject.SetActive(false);
     }
 }
