@@ -19,8 +19,6 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        // Registrar el evento para cargar el UIManager cuando cambie la escena
-        //SceneManager.sceneLoaded += OnSceneLoaded;
 
     }
     public enum GameState
@@ -96,6 +94,7 @@ public class GameManager : MonoBehaviour
     public void RestartScene()
     {
         state = GameState.Playing;
+
         uiUXManager.HidePause();
         uiUXManager.HideGameOver();
         uiUXManager.HideVictory();
@@ -107,6 +106,9 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
         uiUXManager.HidePause();
         uiUXManager.ShowGameOver();
         //state = GameState.GameOver;
@@ -115,6 +117,9 @@ public class GameManager : MonoBehaviour
 
     public void Victory()
     {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
         uiUXManager.HidePause();
         uiUXManager.ShowVictory();
         Time.timeScale = 0f;
@@ -122,22 +127,6 @@ public class GameManager : MonoBehaviour
 
     public void TimeScale() { Time.timeScale = 1f; }
 
-    //public void FindUIManager()
-    //{
-    //    uiUXManager = FindAnyObjectByType<UIManager>();
-    //}
-
-    //// Función que se ejecuta cuando una escena es cargada
-    //void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    //{
-    //    FindUIManager();
-    //}
-
-    //// Asegurarse de eliminar el evento cuando el objeto es destruido
-    //void OnDestroy()
-    //{
-    //    SceneManager.sceneLoaded -= OnSceneLoaded;
-    //}
 
 }
 

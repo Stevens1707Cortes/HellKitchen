@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ClientBehavior : MonoBehaviour
-{
+{   
+    private ClientManager clientManager;
+
     // Colores para el cliente
     public Color colorVerde = Color.green;
     public Color colorMorado = Color.magenta;
     private Renderer rend;
 
     void Start()
-    {
+    {   
         rend = GetComponent<Renderer>();
+        clientManager = FindAnyObjectByType<ClientManager>();
+        clientManager.RegisterClient(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -22,10 +26,12 @@ public class ClientBehavior : MonoBehaviour
             {
                 Destroy(other.gameObject);
                 rend.material.color = colorVerde;
+                clientManager.UnregisterClient(gameObject);
             }
             else
             {
                 rend.material.color = colorMorado;
+                clientManager.UnregisterClient(gameObject);
             }
         }
         

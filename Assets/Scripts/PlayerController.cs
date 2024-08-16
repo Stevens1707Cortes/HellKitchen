@@ -25,7 +25,12 @@ public class PlayerController : MonoBehaviour
     [Header("Damage Settings")]
     [SerializeField] private float damageCooldown = 5f; 
     private bool canTakeDamage = true;
-    [SerializeField] protected EnemyManager enemyManager;
+    [SerializeField] private EnemyManager enemyManager;
+
+    [Header("Player Canvas Settings")]
+    [SerializeField] private GameObject canvasDoor;
+
+    private ClientManager clientManager;
 
     private Vector3 velocity;           
     private bool isGrounded;
@@ -41,7 +46,16 @@ public class PlayerController : MonoBehaviour
             weapons[1].SetActive(false);
         }
 
+        if(canvasDoor != null)
+        {
+            canvasDoor.SetActive(false);
+        }
+
         enemyManager = FindObjectOfType<EnemyManager>();
+        clientManager = FindObjectOfType<ClientManager>();
+
+        GameManager.Instance.HideAll();
+        GameManager.Instance.TimeScale();
     }
 
     void Update()
@@ -99,6 +113,7 @@ public class PlayerController : MonoBehaviour
             GameManager.Instance.ResumeGame();
         }
 
+
         //Comprobar condicion de victoria 1
         Victory();
 
@@ -146,17 +161,27 @@ public class PlayerController : MonoBehaviour
             if (enemyManager.GetActiveEnemyCount() <= 0)
             {
                 isVictory = true;
-                Debug.Log("Nivel Superado");
+                GameManager.Instance.Victory();
             }
-        } 
+        }
+
+        if (clientManager != null)
+        {
+            if (clientManager.GetActiveClientCount() <= 0)
+            {
+                isVictory = true;
+                GameManager.Instance.Victory();
+            }
+        }
     }
 
     public void GameOver()
     {
         if (isDead)
         {
-            Debug.Log("El jugador esta muerto");
             //Pantalla de derrota
+
+            GameManager.Instance.GameOver();
         }
     }
 
@@ -189,6 +214,37 @@ public class PlayerController : MonoBehaviour
                     StartCoroutine(HandleDamageCooldown(0));
                     break;
             }
+        }
+    }
+
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Door"))
+        {
+            if (canvasDoor != null)
+            {
+                canvasDoor.SetActive(true);
+            }
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Debug.Log("Pasando de nivel");
+                GameManager.Instance.LoadScene("StevenGym");
+            }
+
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Door"))
+        {
+            if (canvasDoor != null)
+            {
+                canvasDoor.SetActive(false);
+            }
+
         }
     }
 }
