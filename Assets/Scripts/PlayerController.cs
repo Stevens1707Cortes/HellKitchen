@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private bool isChangingWeapon = false;
     public bool isVictory = false;
+    public bool isPaused = false;
 
     void Start()
     {   
@@ -78,6 +79,26 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(ChangeWeapon());
         }
 
+        //Pause
+        if (Input.GetKeyDown(KeyCode.Tab) && !isPaused)
+        {
+            isPaused = true;
+
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+
+            GameManager.Instance.PauseGame();
+        }
+        else if (Input.GetKeyDown(KeyCode.Tab) && isPaused) 
+        { 
+            isPaused = false;
+
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+
+            GameManager.Instance.ResumeGame();
+        }
+
         //Comprobar condicion de victoria 1
         Victory();
 
@@ -119,12 +140,15 @@ public class PlayerController : MonoBehaviour
 
     public void Victory()
     {
-        //Conteo de enemigos en el nivel
-        if (enemyManager.GetActiveEnemyCount() <= 0)
+        if (enemyManager != null)
         {
-            isVictory = true;
-            Debug.Log("Nivel Superado");
-        }
+            //Conteo de enemigos en el nivel
+            if (enemyManager.GetActiveEnemyCount() <= 0)
+            {
+                isVictory = true;
+                Debug.Log("Nivel Superado");
+            }
+        } 
     }
 
     public void GameOver()

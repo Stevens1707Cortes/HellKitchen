@@ -2,50 +2,55 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private GameObject victoryCanvas, defeatCanvas, controlCanvas, creditsCanvas, mainMenuCanvas;
+    [SerializeField] private GameObject victoryCanvas, defeatCanvas, controlCanvas, creditsCanvas, mainMenuCanvas, pauseCanvas;
 
 
     private void Start()
     {
 
         //GameManager.Instance.HideAll();
-        controlCanvas.SetActive(false);
-        creditsCanvas.SetActive(false);
+        if (controlCanvas != null) { controlCanvas.SetActive(false); }
+
+        if (controlCanvas != null) { controlCanvas.SetActive(false); }
+
+        if (pauseCanvas != null) { pauseCanvas.SetActive(false); }
+
     }
 
     public void ShowMainMenu()
     {
-        mainMenuCanvas.SetActive(true);
+        if (mainMenuCanvas != null) { mainMenuCanvas.SetActive(true); }
     }
 
     public void HideMainMenu()
     {
-        mainMenuCanvas.SetActive(false);
+        if (mainMenuCanvas != null) { mainMenuCanvas.SetActive(false); }
+       
     }
 
     public void ShowControls()
     {
-        controlCanvas.SetActive(true);
+        if (controlCanvas != null) { controlCanvas.SetActive(true); }
     }
 
     public void HideControls()
     {
-        controlCanvas.SetActive(false);
+        if (controlCanvas != null) { controlCanvas.SetActive(false); }
     }
 
     public void ShowCredits()
     {
-        creditsCanvas.SetActive(true);
+        if (creditsCanvas != null) { creditsCanvas.SetActive(true); }
     }
 
     public void HideCredits()
     {
-        creditsCanvas.SetActive(false);
+        if (creditsCanvas != null) { creditsCanvas.SetActive(false); }
     }
 
     public void ShowVictory()
     {
-        victoryCanvas.SetActive(true);
+        if (victoryCanvas != null) { victoryCanvas.SetActive(true); }
     }
 
     public void HideVictory()
@@ -57,7 +62,7 @@ public class UIManager : MonoBehaviour
     }
     public void ShowGameOver()
     {
-        defeatCanvas.SetActive(true);
+        if (defeatCanvas != null) {  defeatCanvas.SetActive(true); }
     }
 
     public void HideGameOver()
@@ -66,5 +71,15 @@ public class UIManager : MonoBehaviour
         {
             defeatCanvas.SetActive(false);
         }
+    }
+
+    public void ShowPause()
+    {
+        if (pauseCanvas != null) { pauseCanvas.SetActive(true); }
+    }
+
+    public void HidePause()
+    {
+        if (pauseCanvas != null) { pauseCanvas.SetActive(false); }
     }
 }

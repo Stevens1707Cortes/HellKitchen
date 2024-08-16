@@ -9,6 +9,8 @@ TagManager:
   - Enemy
   - Ground
   - Transformable
+  - Food
+  - Door
   layers:
   - Default
   - TransparentFX

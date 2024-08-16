@@ -19,6 +19,9 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        // Registrar el evento para cargar el UIManager cuando cambie la escena
+        //SceneManager.sceneLoaded += OnSceneLoaded;
+
     }
     public enum GameState
     {
@@ -32,7 +35,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         state = GameState.Playing;
-        uiUXManager = FindAnyObjectByType<UIManager>();
+        //FindUIManager();
         HideAll();
     }
 
@@ -54,6 +57,7 @@ public class GameManager : MonoBehaviour
     //Cambiar a la escena de MainMenu
     public void LoadMainMenu()
     {
+        uiUXManager.HidePause();
         uiUXManager.HideVictory();
         uiUXManager.HideGameOver();
         uiUXManager.ShowMainMenu();
@@ -74,6 +78,8 @@ public class GameManager : MonoBehaviour
     //Pausar el juego
     public void PauseGame()
     {
+        state = GameState.Paused;
+        uiUXManager.ShowPause();
         Time.timeScale = 0f;
         state = GameState.Paused;
     }
@@ -81,6 +87,7 @@ public class GameManager : MonoBehaviour
     //Reanudar el juego
     public void ResumeGame()
     {
+        uiUXManager.HidePause();
         Time.timeScale = 1f;
         state = GameState.Playing;
     }
@@ -89,6 +96,7 @@ public class GameManager : MonoBehaviour
     public void RestartScene()
     {
         state = GameState.Playing;
+        uiUXManager.HidePause();
         uiUXManager.HideGameOver();
         uiUXManager.HideVictory();
         uiUXManager.HideMainMenu();
@@ -99,6 +107,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        uiUXManager.HidePause();
         uiUXManager.ShowGameOver();
         //state = GameState.GameOver;
         Time.timeScale = 0f;
@@ -106,11 +115,29 @@ public class GameManager : MonoBehaviour
 
     public void Victory()
     {
+        uiUXManager.HidePause();
         uiUXManager.ShowVictory();
         Time.timeScale = 0f;
     }
 
     public void TimeScale() { Time.timeScale = 1f; }
+
+    //public void FindUIManager()
+    //{
+    //    uiUXManager = FindAnyObjectByType<UIManager>();
+    //}
+
+    //// Función que se ejecuta cuando una escena es cargada
+    //void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    //{
+    //    FindUIManager();
+    //}
+
+    //// Asegurarse de eliminar el evento cuando el objeto es destruido
+    //void OnDestroy()
+    //{
+    //    SceneManager.sceneLoaded -= OnSceneLoaded;
+    //}
 
 }
 
