@@ -34,6 +34,12 @@ public class ClientBehavior : MonoBehaviour
                 clientManager.UnregisterClient(gameObject);
             }
         }
+
+        if (other.gameObject.CompareTag("Transformable"))
+        {   
+            Destroy(other.gameObject);
+            GameManager.Instance.GameOver();
+        }
         
     }
 }
