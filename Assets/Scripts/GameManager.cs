@@ -52,6 +52,13 @@ public class GameManager : MonoBehaviour
         uiUXManager.HideVictory();
     }
 
+    //Comprobar las escena actual
+    public bool IsCurrentScene(string sceneName)
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        return currentScene.name == sceneName;
+    }
+
     //Cambiar a la escena de MainMenu
     public void LoadMainMenu()
     {
@@ -64,7 +71,7 @@ public class GameManager : MonoBehaviour
         state = GameState.MainMenu;
     }
 
-    // Funci�n para cambiar a la escena StevenGym
+    // Funci�n para cambiar a la escena 
     public void LoadScene(string nameEscene)
     {
         uiUXManager.HideMainMenu();

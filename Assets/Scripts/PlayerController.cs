@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed = 12f;
     [SerializeField] private float gravity = -9.81f;
     [SerializeField] private float jumpHeight = 3f;
+    private bool canSwitch;
 
     [Header("Weapons")]
     [SerializeField] private List<GameObject> weapons = new List<GameObject>();
@@ -42,12 +43,18 @@ public class PlayerController : MonoBehaviour
     public bool isPaused = false;
 
     void Start()
-    {   
+    {
+        //Comprobar escena de Dungeon, y habilitar el cambio de arma
+        canSwitch = GameManager.Instance.IsCurrentScene("StevenGym");
+
+        //Configurar armas
         if (weapons.Count > 0)
         {
             weapons[0].SetActive(true);
             weapons[1].SetActive(false);
         }
+
+        //Canvas
 
         if(canvasDoor != null)
         {
@@ -59,14 +66,16 @@ public class PlayerController : MonoBehaviour
             lifeCanvas.text = "Life: " + maxHealth + " / " + health;
         }
 
-        enemyManager = FindObjectOfType<EnemyManager>();
-        clientManager = FindObjectOfType<ClientManager>();
-
-        if(GameManager.Instance != null) 
+        if (GameManager.Instance != null)
         {
             GameManager.Instance.HideAll();
             GameManager.Instance.TimeScale();
         }
+
+        //Manager sobre el estado de clientes y enemigos
+
+        enemyManager = FindObjectOfType<EnemyManager>();
+        clientManager = FindObjectOfType<ClientManager>();
         
     }
 
@@ -99,10 +108,12 @@ public class PlayerController : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         //Cambio de arma
-
-        if (Input.GetKeyDown(KeyCode.Q) && !isChangingWeapon)
+        if (canSwitch)
         {
-            StartCoroutine(ChangeWeapon());
+            if (Input.GetKeyDown(KeyCode.Q) && !isChangingWeapon)
+            {
+                StartCoroutine(ChangeWeapon());
+            }
         }
 
         //Pause
