@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -8,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private WeaponChange weaponSwitcher;
 
     [Header("Player Stats")]
+    [SerializeField] private int maxHealth;
     [SerializeField] private int health;
     [SerializeField] private int armor;
     private int currentWeaponIndex = 0;
@@ -29,6 +31,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Player Canvas Settings")]
     [SerializeField] private GameObject canvasDoor;
+    [SerializeField] private TMP_Text lifeCanvas;
 
     private ClientManager clientManager;
 
@@ -51,11 +54,20 @@ public class PlayerController : MonoBehaviour
             canvasDoor.SetActive(false);
         }
 
+        if (lifeCanvas != null)
+        {
+            lifeCanvas.text = "Life: " + maxHealth + " / " + health;
+        }
+
         enemyManager = FindObjectOfType<EnemyManager>();
         clientManager = FindObjectOfType<ClientManager>();
 
-        GameManager.Instance.HideAll();
-        GameManager.Instance.TimeScale();
+        if(GameManager.Instance != null) 
+        {
+            GameManager.Instance.HideAll();
+            GameManager.Instance.TimeScale();
+        }
+        
     }
 
     void Update()
@@ -113,7 +125,6 @@ public class PlayerController : MonoBehaviour
             GameManager.Instance.ResumeGame();
         }
 
-
         //Comprobar condicion de victoria 1
         Victory();
 
@@ -142,6 +153,7 @@ public class PlayerController : MonoBehaviour
     public void PlayerTakeDamage(int damage)
     {
         health -= damage;
+        lifeCanvas.text = "Life: " + maxHealth + " / " + health;
         if (health <= 0) 
         { 
             PlayerDie();

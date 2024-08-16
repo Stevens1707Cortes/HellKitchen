@@ -115,7 +115,8 @@ public class Enemy : MonoBehaviour
         }
     }
     public virtual void Die() 
-    {
+    {   
+        gameObject.GetComponent<MeshCollider>().enabled = false;
         enemyManager.UnregisterEnemy(gameObject);
         navMeshController.StopAgent();
         enemyAnimator.SetBool("isDead", true);
