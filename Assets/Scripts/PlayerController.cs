@@ -45,7 +45,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         //Comprobar escena de Dungeon, y habilitar el cambio de arma
-        canSwitch = GameManager.Instance.IsCurrentScene("StevenGym");
+        //canSwitch = GameManager.Instance.IsCurrentScene("StevenGym");
+        canSwitch = true;
 
         //Configurar armas
         if (weapons.Count > 0)
