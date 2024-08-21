@@ -12,6 +12,7 @@ TagManager:
   - Food
   - Door
   - Client
+  - MeeleAttack
   layers:
   - Default
   - TransparentFX

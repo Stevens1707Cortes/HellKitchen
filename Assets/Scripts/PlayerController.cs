@@ -228,16 +228,22 @@ public class PlayerController : MonoBehaviour
         if (hit.collider.CompareTag("Enemy") && canTakeDamage)
         {
             string name = hit.gameObject.GetComponent<Enemy>().enemyName;
+            int damage = hit.gameObject.GetComponent<Enemy>().damage;
 
             switch (name)
             {
                 case "Kamikaze":
-                    StartCoroutine(HandleDamageCooldown(20));
+                    StartCoroutine(HandleDamageCooldown(damage));
                     break;
                 default:
                     StartCoroutine(HandleDamageCooldown(0));
                     break;
             }
+        }
+
+        if (hit.collider.CompareTag("MeeleAttack") && canTakeDamage)
+        {
+            StartCoroutine(HandleDamageCooldown(5));
         }
     }
 

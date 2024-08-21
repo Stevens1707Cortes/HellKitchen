@@ -120,6 +120,7 @@
     <Compile Include="Assets\Scripts\E_Plusmagun.cs" />
     <Compile Include="Assets\Scripts\E_Melee.cs" />
     <Compile Include="Assets\Scripts\E_RifleGun.cs" />
+    <Compile Include="Assets\Scripts\EnemyBulletController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

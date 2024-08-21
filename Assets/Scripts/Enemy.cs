@@ -3,7 +3,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] protected int health;
-    [SerializeField] protected int damage;
+    public int damage;
     public string enemyName;
     [SerializeField] protected Animator enemyAnimator;
 
@@ -13,6 +13,10 @@ public class Enemy : MonoBehaviour
     //Maquina de estados
     protected enum State { Idle, Chasing, Attacking, Returning, Dead };
     [SerializeField] protected State currentState;
+
+    //Manejo de los comportamientos de ataque
+    protected bool isAttacking = false;
+
 
     //Loot de ingredientes
     [SerializeField] GameObject ingredientPrefab;
@@ -67,6 +71,7 @@ public class Enemy : MonoBehaviour
     protected virtual void IdleBehavior()
     {   
         enemyAnimator.SetBool("isMoving", false);
+        enemyAnimator.SetBool("isAttacking", false);
         enemyAnimator.SetBool("isDead", false);
         enemyAnimator.SetBool("isHitted", false);
 
@@ -96,6 +101,8 @@ public class Enemy : MonoBehaviour
     protected virtual void ReturningBehavior()
     {
         navMeshController.ReturnOriginalPosition();
+
+        if (navMeshController.IsPlayerDetected()) { SetState(State.Chasing);  }
 
         // Cambiar al estado Idle si el enemigo ha vuelto a la posición original
         if (navMeshController.HasReturnedToOriginalPosition())
@@ -136,7 +143,8 @@ public class Enemy : MonoBehaviour
         {
             LootIngredient(ingredientPrefab);
         }
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 
     protected virtual void LootIngredient(GameObject ingredient)

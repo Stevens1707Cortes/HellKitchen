@@ -94,4 +94,13 @@ public class NavMeshController : MonoBehaviour
         agent.isStopped = true;
     }
 
+    public bool IsPlayerInRange(float range)
+    {
+        return Vector3.Distance(transform.position, playerPosition.position) < range;
+    }
+
+    public Transform GetPlayer()
+    {
+        return playerPosition;
+    }
 }

@@ -16,4 +16,10 @@ public class E_RifleGun : Enemy
         }
 
     }
+
+    private void QuitAttack()
+    {
+        enemyAnimator.SetBool("isAttacking", false);
+        isAttacking = false;
+    }
 }
