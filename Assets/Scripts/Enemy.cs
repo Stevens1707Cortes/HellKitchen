@@ -14,6 +14,10 @@ public class Enemy : MonoBehaviour
     protected enum State { Idle, Chasing, Attacking, Returning, Dead };
     [SerializeField] protected State currentState;
 
+    //Loot de ingredientes
+    [SerializeField] GameObject ingredientPrefab;
+    private bool hasInstantiated = false;
+
     protected virtual void Start()
     {
         navMeshController = gameObject.GetComponent<NavMeshController>();
@@ -116,10 +120,7 @@ public class Enemy : MonoBehaviour
     }
     public virtual void Die() 
     {
-        //if (gameObject.GetComponent<MeshCollider>() != null) 
-        //{
         //    gameObject.GetComponent<MeshCollider>().enabled = false;
-        //}
 
         gameObject.GetComponent<Collider>().enabled = false;
 
@@ -131,7 +132,22 @@ public class Enemy : MonoBehaviour
 
     public virtual void DisableEnemy()
     {
+        if (ingredientPrefab != null)
+        {
+            LootIngredient(ingredientPrefab);
+        }
         gameObject.SetActive(false);
+    }
+
+    protected virtual void LootIngredient(GameObject ingredient)
+    {   
+        //Codigo temporal, mientras manejo el pool
+
+        if (!hasInstantiated) // Verifica si ya se ha instanciado
+        {
+            Instantiate(ingredient, transform.position + new Vector3(0, 1, 0), transform.rotation);
+            hasInstantiated = true; // Marca como instanciado
+        }
     }
 
 }
