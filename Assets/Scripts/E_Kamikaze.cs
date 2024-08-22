@@ -24,4 +24,12 @@ public class E_Kamikaze : Enemy
 
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("ArmAttack"))
+        {
+            this.TakeDamage(other.gameObject.GetComponentInParent<Arms>().armDamage);
+        }
+    }
+
 }

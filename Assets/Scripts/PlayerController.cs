@@ -36,6 +36,9 @@ public class PlayerController : MonoBehaviour
 
     private ClientManager clientManager;
 
+    private Vector3 pushDirection = Vector3.zero;
+    private float pushTime = 0;
+
     private Vector3 velocity;           
     private bool isGrounded;
     private bool isChangingWeapon = false;
@@ -44,6 +47,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+
         //Comprobar escena de Dungeon, y habilitar el cambio de arma
         //canSwitch = GameManager.Instance.IsCurrentScene("StevenGym");
         canSwitch = true;
@@ -77,6 +81,7 @@ public class PlayerController : MonoBehaviour
 
         enemyManager = FindObjectOfType<EnemyManager>();
         clientManager = FindObjectOfType<ClientManager>();
+       
         
     }
 
@@ -135,6 +140,13 @@ public class PlayerController : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
 
             GameManager.Instance.ResumeGame();
+        }
+
+        // Si hay un empuje activo, aplicarlo
+        if (pushTime > 0)
+        {
+            controller.Move(pushDirection * 8f * Time.deltaTime);
+            pushTime -= Time.deltaTime;
         }
 
         //Comprobar condicion de victoria 1
@@ -221,6 +233,14 @@ public class PlayerController : MonoBehaviour
         canTakeDamage = true;
     }
 
+    //Empuje
+    public void ApplyPush(Vector3 direction)
+    {
+        pushDirection = direction.normalized;
+        pushTime = 0.2f;
+    }
+
+
     //Colisiones
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -244,6 +264,13 @@ public class PlayerController : MonoBehaviour
         if (hit.collider.CompareTag("MeeleAttack") && canTakeDamage)
         {
             StartCoroutine(HandleDamageCooldown(5));
+
+            // Calcula la dirección del empuje
+            Vector3 direction = hit.transform.position - transform.position;
+            direction.y = 0; // Opcional: elimina el componente Y para empuje horizontal
+
+            // Aplica el empuje
+            ApplyPush(-direction);
         }
 
     }

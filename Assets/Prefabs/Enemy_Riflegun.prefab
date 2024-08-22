@@ -1,5 +1,52 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &308241356
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 308241357}
+  - component: {fileID: 308241358}
+  m_Layer: 0
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &308241357
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 308241356}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.00009, y: 0, z: 0.00014}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1016823885390330791}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &308241358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 308241356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b26b29408f26a9940bd1be60e2c62de1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 4405526532818959716, guid: fd2a6e34aa6d026479c63d91e4fa12ed, type: 3}
+  poolSize: 1
+  bulletList: []
 --- !u!1 &14375159392638030
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,13 +196,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
-  damage: 0
+  damage: 50
   enemyName: 
   enemyAnimator: {fileID: 0}
   enemyManager: {fileID: 0}
   navMeshController: {fileID: 0}
   currentState: 0
   ingredientPrefab: {fileID: 0}
+  attackRange: 20
+  firePoint: {fileID: 308241357}
+  fireRate: 0.3
+  fireVelocity: 30
+  bulletPooling: {fileID: 308241358}
 --- !u!114 &135486399367846294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,8 +222,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPosition: {fileID: 0}
   animator: {fileID: 0}
-  actionZone: 
-  randomOffsetRange: 21
+  actionZone: Zone4
+  randomOffsetRange: 1
   speedVariation: 0.5
 --- !u!195 &135486399367846295
 NavMeshAgent:
@@ -222,7 +274,8 @@ Transform:
   m_LocalPosition: {x: -0.0033557494, y: 0.0069935904, z: 0.008485829}
   m_LocalScale: {x: 0.9996313, y: 1, z: 0.99996156}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 308241357}
   m_Father: {fileID: 6847463284716979697}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

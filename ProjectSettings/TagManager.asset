@@ -13,6 +13,8 @@ TagManager:
   - Door
   - Client
   - MeeleAttack
+  - EnemyBullet
+  - ArmAttack
   layers:
   - Default
   - TransparentFX

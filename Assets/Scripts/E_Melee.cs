@@ -20,6 +20,14 @@ public class E_Melee : Enemy
 
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("ArmAttack"))
+        {
+            this.TakeDamage(other.gameObject.GetComponentInParent<Arms>().armDamage);
+        }
+    }
+
     protected override void ChasingBehavior()
     {
         base.ChasingBehavior();
