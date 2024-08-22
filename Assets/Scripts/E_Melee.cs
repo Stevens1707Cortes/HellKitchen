@@ -15,7 +15,7 @@ public class E_Melee : Enemy
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
-            this.TakeDamage(20);
+            this.TakeDamage(collision.gameObject.GetComponent<BulletController>().bulletDamage);
         }
 
     }

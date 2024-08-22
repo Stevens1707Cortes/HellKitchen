@@ -15,7 +15,7 @@ public class E_Plusmagun : Enemy
     {
         base.Start();
         this.enemyName = "Plusmagun";
-        bulletPooling.SetBulletsDamage(this.damage);
+        bulletPooling.SetEnemyBulletsDamage(this.damage);
     }
 
     protected override void Update()
@@ -32,7 +32,7 @@ public class E_Plusmagun : Enemy
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
-            this.TakeDamage(20);
+            this.TakeDamage(collision.gameObject.GetComponent<BulletController>().bulletDamage);
         }
 
     }

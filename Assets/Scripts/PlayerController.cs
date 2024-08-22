@@ -245,8 +245,30 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(HandleDamageCooldown(5));
         }
+
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("EnemyBullet") && canTakeDamage)
+        {
+            string name = other.gameObject.GetComponent<EnemyBulletController>().bulletName;
+            int damage = other.gameObject.GetComponent<EnemyBulletController>().bulletDamage;
+
+            switch (name)
+            {
+                case "Plasmagun":
+                    PlayerTakeDamage(damage);
+                    break;
+                case "Riflegun":
+                    PlayerTakeDamage(damage);
+                    break;
+                default:
+                    PlayerTakeDamage(0);
+                    break;
+            }
+        }
+    }
 
     private void OnTriggerStay(Collider other)
     {

@@ -6,6 +6,7 @@ public class Gun : MonoBehaviour
     public string gunName; // Nombre del arma
     public int currentAmmo; // Municion
     public int maxAmmo; // Municion Maxima
+    public int gunDamage; // Municion Maxima
     [SerializeField] protected Transform gunTransform;
     protected Vector3 originalPosition;
 

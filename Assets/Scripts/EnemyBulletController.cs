@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyBulletController : MonoBehaviour
 {
-    [SerializeField] string bulletName;
+    public string bulletName;
     public int bulletDamage;
     private BulletPooling bulletPooling;
 
@@ -13,10 +13,9 @@ public class EnemyBulletController : MonoBehaviour
         bulletPooling = FindObjectOfType<BulletPooling>();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-
-        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Obstacle") || collision.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Obstacle") || other.gameObject.CompareTag("Player"))
         {
             gameObject.SetActive(false);
             bulletPooling.ReturnBulletToPool(gameObject);

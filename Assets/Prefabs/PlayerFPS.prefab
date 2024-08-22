@@ -476,6 +476,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 4405526532818959716, guid: 5b7f9edd2a0815b4c88c2775cc6c0705, type: 3}
+  poolSize: 3
   bulletList: []
 --- !u!1 &2357226976551503378
 GameObject:
@@ -522,6 +523,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 4405526532818959716, guid: 5b7f9edd2a0815b4c88c2775cc6c0705, type: 3}
+  poolSize: 3
   bulletList: []
 --- !u!1 &2357226976959250364
 GameObject:
@@ -1078,6 +1080,7 @@ MonoBehaviour:
   gunName: 
   currentAmmo: 0
   maxAmmo: 0
+  gunDamage: 30
   gunTransform: {fileID: 2827191906410504269}
   fireRate: 0
   recoilAmount: 0.26
@@ -1206,6 +1209,7 @@ MonoBehaviour:
   gunName: 
   currentAmmo: 0
   maxAmmo: 0
+  gunDamage: 15
   gunTransform: {fileID: 2827191905397463033}
   fireRate: 0
   recoilAmount: 0.25

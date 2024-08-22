@@ -34,11 +34,19 @@ public class BulletPooling : MonoBehaviour
         return null;
     }
 
-    public void SetBulletsDamage(int damage)
+    public void SetEnemyBulletsDamage(int damage)
     {
         foreach (GameObject bullet in bulletList)
         {
             bullet.GetComponent<EnemyBulletController>().bulletDamage = damage;
+        }
+    }
+
+    public void SetBulletsDamage(int damage)
+    {
+        foreach (GameObject bullet in bulletList)
+        {
+            bullet.GetComponent<BulletController>().SetBulletDamage(damage);
         }
     }
 

@@ -4,7 +4,8 @@ public class ShotGun : Gun
 {
     private float nextFire = 0f;
     private Quaternion originalRotation;
-    private bool isRecoiling = false; 
+    private bool isRecoiling = false;
+    private bool bulletUpdate = false; //Actualizar el dsño de la bala
 
 
     [SerializeField] private float recoilRotationForce = 20f; //Angulo para rotar al disparar
@@ -18,6 +19,7 @@ public class ShotGun : Gun
         this.maxAmmo = this.currentAmmo;
         this.fireRate = 1f;
 
+
         //Posiciones
         originalPosition = gunTransform.localPosition;
         originalRotation = gunTransform.localRotation;
@@ -25,6 +27,14 @@ public class ShotGun : Gun
 
     void Update()
     {
+        if (!this.bulletUpdate) 
+        {
+            //Inicializar el daño de las balas
+            bulletPool.SetBulletsDamage(this.gunDamage);
+            bulletUpdate = true;
+        }
+        
+
         //Comprobacion de disparo
         if (Input.GetButton("Fire1") && Time.time >= nextFire) {
             if (currentAmmo > 0)

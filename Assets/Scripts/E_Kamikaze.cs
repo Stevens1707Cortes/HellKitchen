@@ -17,11 +17,11 @@ public class E_Kamikaze : Enemy
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Bullet")) 
+        if (collision.gameObject.CompareTag("Bullet"))
         {
-            this.TakeDamage(20);
+            this.TakeDamage(collision.gameObject.GetComponent<BulletController>().bulletDamage);
         }
-        
+
     }
 
 }

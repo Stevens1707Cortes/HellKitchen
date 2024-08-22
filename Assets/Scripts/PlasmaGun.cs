@@ -4,6 +4,7 @@ public class PlasmaGun : Gun
 {
     private float nextFire = 0f;
     private bool isRecoiling = false;
+    private bool bulletUpdate = false; //Actualizar el dsño de la bala
 
 
     //[SerializeField] private Transform gunTransform;
@@ -21,6 +22,14 @@ public class PlasmaGun : Gun
 
     void Update()
     {
+
+        if (!this.bulletUpdate)
+        {
+            //Inicializar el daño de las balas
+            bulletPool.SetBulletsDamage(this.gunDamage);
+            bulletUpdate = true;
+        }
+
         //Comprobacion de disparo
         if (Input.GetButton("Fire1") && Time.time >= nextFire)
         {
