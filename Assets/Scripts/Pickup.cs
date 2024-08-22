@@ -7,7 +7,7 @@ public class Pickup : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        pickupPoint = GameObject.Find("S_Arms").GetComponent<Transform>();
+        pickupPoint = GameObject.Find("PSX_Arms").GetComponent<Transform>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }

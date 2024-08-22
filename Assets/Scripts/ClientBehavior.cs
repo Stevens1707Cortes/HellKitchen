@@ -6,13 +6,14 @@ public class ClientBehavior : MonoBehaviour
 {   
     private ClientManager clientManager;
     private ClientLineManager lineManager;
+    private ClientNavMesh navMesh;
 
     // Colores para el cliente
     public Color colorVerde = Color.green;
     public Color colorMorado = Color.magenta;
     private Renderer rend;
 
-    [SerializeField] private float clientTimer;
+    public float clientTimer;
     [SerializeField] private string foodOrder;
     private bool isAttended = false;
 
@@ -24,7 +25,8 @@ public class ClientBehavior : MonoBehaviour
     {   
         rend = GetComponent<Renderer>();
 
-        lineManager = GameObject.FindFirstObjectByType<ClientLineManager>();
+        lineManager = FindFirstObjectByType<ClientLineManager>();
+        navMesh = GetComponent<ClientNavMesh>();
 
         clientManager = FindAnyObjectByType<ClientManager>();
         clientManager.RegisterClient(gameObject);
@@ -48,16 +50,18 @@ public class ClientBehavior : MonoBehaviour
             {
                 Destroy(other.gameObject);
                 rend.material.color = colorVerde;
+                isAttended = true;
                 //clientManager.UnregisterClient(gameObject);
             }
             else
             {
                 rend.material.color = colorMorado;
+                isAttended = true;
                 //clientManager.UnregisterClient(gameObject);
             }
 
             //Destruir el cliente luego de recibir la orden
-            Invoke("DestroyClient", 2f);
+
         }
 
         if (other.gameObject.CompareTag("Transformable"))
@@ -68,6 +72,18 @@ public class ClientBehavior : MonoBehaviour
         
     }
 
+    public void HandleAttendedRoutines() 
+    {
+        if (isAttended == false) 
+        { 
+            navMesh.StartArrivalEndPoint();
+        }
+        else if(isAttended == true)
+        {
+            navMesh.StartAttendedEndPoint();
+        }
+    }
+
     public void StartClientTimer()
     {
         StartCoroutine(ClientTimer());
@@ -75,11 +91,9 @@ public class ClientBehavior : MonoBehaviour
 
     IEnumerator ClientTimer()
     {
-        yield return new WaitForSeconds(clientTimer); // Espera 1 minuto
-        if (!isAttended)
-        {
-            DestroyClient();
-        }
+        yield return new WaitForSeconds(0.2f); 
+        DestroyClient();
+        
     }
 
     private void DestroyClient()

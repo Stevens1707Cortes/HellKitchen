@@ -15,6 +15,8 @@ public class ClientLineManager : MonoBehaviour
 
     //Puntos de espera en la fila
     public List<Transform> waitPoints;
+
+    public Transform endPoint;
     // Cola de los clientes
     private Queue<GameObject> clientQueue = new Queue<GameObject>();
 
