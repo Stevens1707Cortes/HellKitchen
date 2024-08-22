@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         //Comprobar escena de Dungeon, y habilitar el cambio de arma
-        canSwitch = GameManager.Instance.IsCurrentScene("StevenGym");
+        //canSwitch = GameManager.Instance.IsCurrentScene("StevenGym");
 
         //Configurar armas
         if (weapons.Count > 0)
@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
 
-        // Verificar si está en el suelo
+        // Verificar si estï¿½ en el suelo
         isGrounded = controller.isGrounded;
         if (isGrounded && velocity.y < 0)
         {
@@ -210,12 +210,12 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator HandleDamageCooldown(int damage)
     {
-        // Deshabilitar el daño mientras se espera el cooldown
+        // Deshabilitar el daï¿½o mientras se espera el cooldown
         canTakeDamage = false; 
         PlayerTakeDamage(damage);
         Debug.Log("Enemigo colisionado. Vida restante: " + health);
 
-        // Esperar para volver a recibir daño
+        // Esperar para volver a recibir daï¿½o
         yield return new WaitForSeconds(damageCooldown); 
         canTakeDamage = true;
     }
