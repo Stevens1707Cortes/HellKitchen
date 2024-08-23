@@ -22,7 +22,7 @@ public class ClientBehavior : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Food"))
         {
-            if (other.gameObject.GetComponent<Pickup>().foodName == "Lungs")
+            if (other.gameObject.GetComponent<Pickup>().foodName == "Hamburguer")
             {
                 Destroy(other.gameObject);
                 rend.material.color = colorVerde;
