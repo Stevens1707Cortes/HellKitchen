@@ -2154,10 +2154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04d78a3af1bc77f4ca1e5b81ed0ec2da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorVerde: {r: 0, g: 1, b: 0, a: 1}
-  colorMorado: {r: 1, g: 0, b: 1, a: 1}
-  clientTimer: 5
   foodOrder: Lungs
+  clientTimer: 5
 --- !u!114 &2741724970176029192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2198,7 +2196,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1.5
-  m_Speed: 3.5
+  m_Speed: 3
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
