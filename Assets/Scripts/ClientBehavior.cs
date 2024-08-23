@@ -88,10 +88,10 @@ public class ClientBehavior : MonoBehaviour
     {
         lineManager.DequeueClient();
 
-        // Notificar al ClientManager que el cliente está siendo destruido
+        // Notificar al ClientManager que el cliente estï¿½ siendo destruido
         clientManager.UnregisterClient(gameObject);
 
-        // Notificar a los suscriptores que el cliente está siendo destruido
+        // Notificar a los suscriptores que el cliente estï¿½ siendo destruido
         OnDestroyed?.Invoke();
 
         // Destruir el cliente
@@ -127,7 +127,7 @@ public class ClientBehavior : MonoBehaviour
             yield return null;
         }
 
-        // Verificar si el cliente fue atendido y ejecutar la animación correspondiente
+        // Verificar si el cliente fue atendido y ejecutar la animaciï¿½n correspondiente
         if (isAttended)
         {
             animator.SetBool("isHappy", true);
