@@ -7,7 +7,8 @@ public class ClientNavMesh : MonoBehaviour
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private ClientLineManager lineManager;
     private ClientBehavior clientBehavior;
-    private float timer;
+    private Animator animator;
+
     public Transform target;
     public Vector3 originalPosition;
     private Transform endPoint; // Añadido para el punto final
@@ -17,9 +18,9 @@ public class ClientNavMesh : MonoBehaviour
         lineManager = FindFirstObjectByType<ClientLineManager>();
         clientBehavior = GetComponent<ClientBehavior>();
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
 
         originalPosition = transform.position;
-        timer = clientBehavior.clientTimer;
         endPoint = lineManager.endPoint;
 
         lineManager.EnqueueClient(gameObject);
@@ -41,6 +42,10 @@ public class ClientNavMesh : MonoBehaviour
                 }
             }
         }
+
+        // Activar la animación de caminar mientras el cliente está en movimiento
+        animator.SetBool("isWalking", agent.velocity.magnitude > 0.1f);
+
     }
 
     // Método para mover al cliente hacia su lugar o a una posicion
@@ -54,36 +59,17 @@ public class ClientNavMesh : MonoBehaviour
 
     public void StartArrivalEndPoint()
     {
-        StartCoroutine(ArrivalEndPoint());
+        StartCoroutine(MoveToEndPoint());
+        animator.SetBool("isWalking", true);
     }
 
     public void StartAttendedEndPoint() 
     {
-        StartCoroutine(AttendedEndPoint());
+        StartCoroutine(MoveToEndPoint());
+        animator.SetBool("isWalking", true);
     }
 
-    private IEnumerator ArrivalEndPoint()
-    {
-        // Espera 10 segundos en el primer waitPoint
-        yield return new WaitForSeconds(timer);
-
-        // Mueve el cliente al endPoint
-        MoveToPosition(endPoint.position);
-
-        // Espera hasta que el cliente llegue al endPoint
-        while (agent.remainingDistance > agent.stoppingDistance || agent.pathPending)
-        {
-            yield return null;
-        }
-
-        // Inicia la corrutina para destruir el cliente
-        if (clientBehavior != null)
-        {
-            clientBehavior.StartClientTimer();
-        }
-    }
-
-    private IEnumerator AttendedEndPoint()
+    private IEnumerator MoveToEndPoint()
     {
         // Mueve el cliente al endPoint
         MoveToPosition(endPoint.position);
@@ -100,5 +86,44 @@ public class ClientNavMesh : MonoBehaviour
             clientBehavior.StartClientTimer();
         }
     }
+
+    //private IEnumerator ArrivalEndPoint()
+    //{
+    //    // Espera segundos en el primer waitPoint
+    //    //yield return new WaitForSeconds(timer);
+
+    //    // Mueve el cliente al endPoint
+    //    MoveToPosition(endPoint.position);
+
+    //    // Espera hasta que el cliente llegue al endPoint
+    //    while (agent.remainingDistance > agent.stoppingDistance || agent.pathPending)
+    //    {
+    //        yield return null;
+    //    }
+
+    //    // Inicia la corrutina para destruir el cliente
+    //    if (clientBehavior != null)
+    //    {
+    //        clientBehavior.StartClientTimer();
+    //    }
+    //}
+
+    //private IEnumerator AttendedEndPoint()
+    //{
+    //    // Mueve el cliente al endPoint
+    //    MoveToPosition(endPoint.position);
+
+    //    // Espera hasta que el cliente llegue al endPoint
+    //    while (agent.remainingDistance > agent.stoppingDistance || agent.pathPending)
+    //    {
+    //        yield return null;
+    //    }
+
+    //    // Inicia la corrutina para destruir el cliente
+    //    if (clientBehavior != null)
+    //    {
+    //        clientBehavior.StartClientTimer();
+    //    }
+    //}
 
 }

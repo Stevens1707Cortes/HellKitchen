@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class ClientBehavior : MonoBehaviour
@@ -9,21 +8,27 @@ public class ClientBehavior : MonoBehaviour
     private ClientNavMesh navMesh;
 
     // Colores para el cliente
-    public Color colorVerde = Color.green;
-    public Color colorMorado = Color.magenta;
-    private Renderer rend;
+    //public Color colorVerde = Color.green;
+    //public Color colorMorado = Color.magenta;
+    //private Renderer rend;
 
-    public float clientTimer;
+    // Temporizador Cliente
     [SerializeField] private string foodOrder;
-    private bool isAttended = false;
+    public float clientTimer;
 
+    //Animaciones
+    private Animator animator;
+    private bool isAttended = false;
+    
+    //Evento para manejar la destruccion de cliente y quitarlo de las listas
     public delegate void ClientDestroyedAction();
     public event ClientDestroyedAction OnDestroyed;
 
 
     void Start()
     {   
-        rend = GetComponent<Renderer>();
+        //rend = GetComponent<Renderer>();
+        animator = GetComponent<Animator>();
 
         lineManager = FindFirstObjectByType<ClientLineManager>();
         navMesh = GetComponent<ClientNavMesh>();
@@ -49,19 +54,21 @@ public class ClientBehavior : MonoBehaviour
             if (other.gameObject.GetComponent<Pickup>().foodName == foodOrder)
             {
                 Destroy(other.gameObject);
-                rend.material.color = colorVerde;
+                //rend.material.color = colorVerde;
                 isAttended = true;
-                //clientManager.UnregisterClient(gameObject);
             }
             else
             {
-                rend.material.color = colorMorado;
+                //rend.material.color = colorMorado;
                 isAttended = true;
-                //clientManager.UnregisterClient(gameObject);
             }
 
-            //Destruir el cliente luego de recibir la orden
-
+            // Cancelar la espera si el cliente recibe el pedido
+            if (isAttended)
+            {
+                StopCoroutine(WaitAnimation());
+                HandleAttendedRoutines(); 
+            }
         }
 
         if (other.gameObject.CompareTag("Transformable"))
@@ -74,26 +81,7 @@ public class ClientBehavior : MonoBehaviour
 
     public void HandleAttendedRoutines() 
     {
-        if (isAttended == false) 
-        { 
-            navMesh.StartArrivalEndPoint();
-        }
-        else if(isAttended == true)
-        {
-            navMesh.StartAttendedEndPoint();
-        }
-    }
-
-    public void StartClientTimer()
-    {
-        StartCoroutine(ClientTimer());
-    }
-
-    IEnumerator ClientTimer()
-    {
-        yield return new WaitForSeconds(0.2f); 
-        DestroyClient();
-        
+        StartCoroutine(WaitAnimation());
     }
 
     private void DestroyClient()
@@ -108,5 +96,52 @@ public class ClientBehavior : MonoBehaviour
 
         // Destruir el cliente
         Destroy(gameObject);
+    }
+
+    // Corrutinas
+
+    public void StartClientTimer()
+    {
+        StartCoroutine(ClientTimer());
+    }
+
+    IEnumerator ClientTimer()
+    {
+        yield return new WaitForSeconds(0.2f); 
+        DestroyClient();
+        
+    }
+
+    private IEnumerator WaitAnimation()
+    {
+        // Esperar en el punto de espera 0 por el tiempo especificado en clientTimer
+        float elapsedTime = 0f;
+        while (elapsedTime < clientTimer)
+        {
+            if (isAttended)
+            {
+                break; 
+            }
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Verificar si el cliente fue atendido y ejecutar la animación correspondiente
+        if (isAttended)
+        {
+            animator.SetBool("isHappy", true);
+        }
+        else
+        {
+            animator.SetBool("isSad", true);
+        }
+
+
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+
+        // Caminar punto final
+        navMesh.StartAttendedEndPoint(); 
+        animator.SetBool("isWalking", true); 
     }
 }
