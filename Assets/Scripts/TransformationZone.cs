@@ -8,59 +8,28 @@ public class TransformationZone : MonoBehaviour
     [SerializeField] string targetName;
     [SerializeField] GameObject progressBar;
     [SerializeField] float transformationDelay = 3f;
+    [SerializeField] private IngredientPooling ingredientPooling; // Referencia al script de pooling
     string targetTag = "Transformable";
 
 
     private void OnCollisionEnter(Collision collision)
     {
         // Verifica si el objeto que entra tiene el tag adecuado
-        if (collision.gameObject.CompareTag(targetTag))
+        if (collision.gameObject.CompareTag(targetTag) && collision.gameObject.layer == LayerMask.NameToLayer("Default"))
         {
-            if (collision.gameObject.GetComponent<Pickup>().foodName == targetName ) 
+            if (collision.gameObject.GetComponent<Pickup>().foodName == targetName)
             {
-                StartCoroutine(TransformObject(collision.gameObject));
-
-                // Obtén la posición y rotación del objeto actual
-                Vector3 position = collision.transform.position;
-                Quaternion rotation = collision.transform.rotation;
-
-                // Destruye el objeto actual
-                // Destroy(other.gameObject);
                 collision.gameObject.SetActive(false);
 
-                // Instancia el nuevo objeto en la misma posición y rotación
-                // Instantiate(transformedObjectPrefab, position, rotation);
+                StartCoroutine(TransformObject(collision.gameObject));
             }
-            
+
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        // Verifica si el objeto que entra tiene el tag adecuado
-        if (other.CompareTag(targetTag))
-        {
-            if (other.gameObject.GetComponent<Pickup>().foodName == targetName)
-            {
-                StartCoroutine(TransformObject(other.gameObject));
-
-                // Obtén la posición y rotación del objeto actual
-                Vector3 position = other.transform.position;
-                Quaternion rotation = other.transform.rotation;
-
-                // Destruye el objeto actual
-                // Destroy(other.gameObject);
-                other.gameObject.SetActive(false);
-
-                // Instancia el nuevo objeto en la misma posición y rotación
-                // Instantiate(transformedObjectPrefab, position, rotation);
-            }
-        }
-    }
     private IEnumerator TransformObject(GameObject obj)
     {
-        //Instanciarlo o dejarlo inactivo y activarlo durante la corutina
-        //GameObject progressBar = Instantiate(progressBarPrefab, transform.position + Vector3.up * 2, transform.rotation);
+        // Activa la barra de progreso
         progressBar.SetActive(true);
         Slider slider = progressBar.GetComponent<Slider>();
 
@@ -72,14 +41,20 @@ public class TransformationZone : MonoBehaviour
             slider.value = elapsedTime / transformationDelay;
             yield return null;
         }
-        
-        Instantiate(transformedObjectPrefab, obj.transform.position + new Vector3(0,0.5f,0), obj.transform.rotation);
 
-        Destroy(obj);
+        // Desactiva el objeto original y lo devuelve al pool
+        ingredientPooling.ActivateOneIngredient(obj);
+
+        // Instancia el nuevo objeto transformado en la posición original del objeto
+        Instantiate(transformedObjectPrefab, gameObject.transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
+
+        // Desactiva la barra de progreso y reinicia su valor
         progressBar.SetActive(false);
         slider.value = 0;
-        
+
         yield return new WaitForSeconds(1f);
+
+        // Rehabilita la barra de progreso para el próximo uso
         progressBar.SetActive(true);
     }
 

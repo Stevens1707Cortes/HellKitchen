@@ -1,75 +1,92 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class IngredientPooling : MonoBehaviour
 {
-    [SerializeField] private GameObject ingredientPrefab; 
-    [SerializeField] private Transform spawnPoint;
-    [SerializeField] private int maxActivations;
+    [SerializeField] private GameObject ingredientPrefab;
+    public Transform spawnPoint;
+    [SerializeField] private int ingredientsNumber;
+    [SerializeField] private int maxActivations; // Número máximo de ingredientes en el pool
     [SerializeField] private int maxActiveIngredients = 1; // Máximo de ingredientes activos
 
-    public int totalIngredientToSpawn;
-    private Queue<GameObject> ingredientPool = new Queue<GameObject>();
-    private int activationCounts = 0;
+    [SerializeField] TMP_Text countText;
+    private int countNumber;
 
-    void Start()
+    private List<GameObject> ingredients;
+    private Quaternion originalRotation;
+    [SerializeField]private int activationCounts = 1;
+
+    private void Awake()
     {
-        StartCoroutine(SpawnIngredientsRoutine());
+        // Inicializar la lista para los ingredientes
+        ingredients = new List<GameObject>();
+
+        // Prellenar el pool con los ingredientes
+        for (int i = 0; i < ingredientsNumber; i++)
+        {
+            GameObject ingredient = Instantiate(ingredientPrefab);
+            ingredient.SetActive(false);
+            ingredient.transform.SetParent(transform); // Organizar los ingredientes en el pool
+            ingredients.Add(ingredient);
+        }
     }
 
-    private void SpawnIngredient()
+    private void Start()
     {
-        if (activationCounts < maxActivations)
-        {
-            GameObject ingredient;
-            if (ingredientPool.Count > 0)
-            {
-                ingredient = ingredientPool.Dequeue();
-            }
-            else
-            {
-                ingredient = Instantiate(ingredientPrefab);
-            }
+        ActivateIngredient();
+        countNumber = maxActivations;
+        countText.text = countNumber.ToString();
+    }
 
+    public void SetMaxActivation(int activations)
+    {
+        maxActivations = activations;
+    }
+
+    // Método para activar un ingrediente
+    public GameObject ActivateIngredient()
+    {
+        if (activationCounts < maxActiveIngredients)
+        {
+            foreach (var ingredient in ingredients)
+            {
+                if (!ingredient.activeInHierarchy)
+                {
+                    ingredient.SetActive(true);
+                    ingredient.transform.position = spawnPoint.position; // Posicionar en el punto de spawn
+                    originalRotation = ingredient.transform.rotation;
+                    activationCounts++;
+                    countNumber--;
+                    countText.text = countNumber.ToString();
+                    return ingredient;
+                }
+            }
+        }
+        return null; // No hay ingredientes disponibles para activar
+    }
+
+    // Método para desactivar un ingrediente
+    public void DeactivateIngredient(GameObject ingredient)
+    {
+        if (ingredient != null && ingredient.activeInHierarchy)
+        {
+            ingredient.SetActive(false);
+            activationCounts--;
+        }
+    }
+
+    public void ActivateOneIngredient(GameObject ingredient)
+    {
+        if (ingredient != null && !ingredient.activeInHierarchy && activationCounts < maxActivations)
+        {
+            ingredient.transform.rotation = originalRotation;
             ingredient.transform.position = spawnPoint.position;
             ingredient.SetActive(true);
-
-            // Añadir un componente para manejar la desactivación
-            Pickup behavior = ingredient.GetComponent<Pickup>();
-            
-            behavior.SetPoolingComponent(this); // Referencia a este script
-
-            ingredientPool.Enqueue(ingredient);
-            activationCounts++; // Incrementa el contador de activaciones
+            activationCounts++;
+            countNumber--;
+            countText.text = countNumber.ToString();
         }
     }
-
-    public void SetIngredientNumber(int ingredient)
-    {
-        totalIngredientToSpawn = ingredient;
-    }
-
-    public void ReturnIngredientToPool(GameObject ingredient)
-    {
-        ingredient.transform.position = spawnPoint.position; // Vuelve a la posición de spawn
-        ingredient.SetActive(false); // Desactiva el objeto
-        ingredientPool.Enqueue(ingredient); // Reintegrar al pool
-        activationCounts--; // Decrementa el contador de activaciones
-    }
-
-    IEnumerator SpawnIngredientsRoutine()
-    {
-        while (totalIngredientToSpawn > 0 || ingredientPool.Count < maxActiveIngredients)
-        {
-            if (activationCounts < maxActivations && totalIngredientToSpawn > 0)
-            {
-                SpawnIngredient();
-                totalIngredientToSpawn--;
-            }
-
-            yield return new WaitForSeconds(1f);
-        }
-    }
-
 }

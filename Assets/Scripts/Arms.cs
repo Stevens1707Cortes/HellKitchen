@@ -1,7 +1,8 @@
 using UnityEngine;
 
 public class Arms : MonoBehaviour
-{
+{   
+
     public int armDamage;
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject collider1, collider2;
@@ -11,19 +12,40 @@ public class Arms : MonoBehaviour
     public float attackRate = 0.5f; // Tiempo entre ataques
     private bool isRightHandAttack = true; // Comienza con el ataque de la mano derecha
 
+    //Temporal
+    private bool isKitchen = false;
+
     private void Start()
     {
         collider1.SetActive(false);
         collider2.SetActive(false);
+
+        isKitchen = true;
     }
 
     private void Update()
     {
-        if (Input.GetButton("Fire1") && Time.time >= nextAttack)
+        if (!isKitchen)
         {
-            Attack();
-            nextAttack = Time.time + attackRate;
+            if (Input.GetButton("Fire1") && Time.time >= nextAttack)
+            {
+                Attack();
+                nextAttack = Time.time + attackRate;
+            }
         }
+        else
+        {
+            if (Input.GetButton("Fire1") && Time.time >= nextAttack)
+            {
+                animator.SetBool("isTaking", true);
+            }
+            else
+            {
+                animator.SetBool("isTaking", false);
+            }
+        }
+
+        
         
     }
 

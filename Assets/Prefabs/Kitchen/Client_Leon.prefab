@@ -2154,7 +2154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04d78a3af1bc77f4ca1e5b81ed0ec2da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foodOrder: Burrito
+  foodNames: []
+  foodOrder: 
   clientTimer: 10
 --- !u!114 &2741724970176029192
 MonoBehaviour:
@@ -2169,6 +2170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogCanvas: {fileID: 6879807562164313677}
+  textCanvas: {fileID: 619874844410895875}
   hasReceivedOrder: 0
 --- !u!114 &624135018959602335
 MonoBehaviour:

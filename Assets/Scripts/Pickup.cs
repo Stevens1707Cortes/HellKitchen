@@ -7,9 +7,6 @@ public class Pickup : MonoBehaviour
     private int originalLayer;
     [SerializeField] int dinnerLayer;
 
-    private IngredientPooling poolingComponent;
-
-
     void Start()
     {
         pickupPoint = GameObject.Find("PSX_Arms").GetComponent<Transform>();
@@ -18,19 +15,6 @@ public class Pickup : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-    }
-
-    public void SetPoolingComponent(IngredientPooling pooling)
-    {
-        poolingComponent = pooling;
-    }
-
-    void OnDisable()
-    {
-        if (poolingComponent != null)
-        {
-            poolingComponent.ReturnIngredientToPool(gameObject);
-        }
     }
 
     private void OnMouseDown() {

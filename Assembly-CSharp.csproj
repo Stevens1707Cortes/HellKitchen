@@ -127,6 +127,7 @@
     <Compile Include="Assets\Scripts\EnemyBulletController.cs" />
     <Compile Include="Assets\Scripts\AudioManager.cs" />
     <Compile Include="Assets\Scripts\IngredientPooling.cs" />
+    <Compile Include="Assets\Scripts\IngredientBehaviour.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

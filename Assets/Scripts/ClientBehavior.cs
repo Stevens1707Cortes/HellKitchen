@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ClientBehavior : MonoBehaviour
@@ -8,9 +9,10 @@ public class ClientBehavior : MonoBehaviour
     private ClientNavMesh navMesh;
     private ClientOrder clientOrder;
 
-    
+
     // Temporizador Cliente
-    [SerializeField] private string foodOrder;
+    [SerializeField] private List<string> foodNames = new List<string>();
+    public string foodOrder;
     public float clientTimer;
 
     //Animaciones
@@ -25,6 +27,10 @@ public class ClientBehavior : MonoBehaviour
 
     void Start()
     {   
+        InitializeFoodNames();
+
+        foodOrder = SelectOrder();
+
         //rend = GetComponent<Renderer>();
         animator = GetComponent<Animator>();
 
@@ -79,6 +85,18 @@ public class ClientBehavior : MonoBehaviour
             HandleAttendedRoutines();
         }
         
+    }
+
+    public void InitializeFoodNames()
+    {
+        foodNames.Add("Hamburguer");
+        foodNames.Add("Sandwich");
+        foodNames.Add("Burrito");
+    }
+    public string SelectOrder()
+    {
+        int randomIndex = Random.Range(0, foodNames.Count);
+        return foodNames[randomIndex];
     }
 
     public void HandleAttendedRoutines() 
