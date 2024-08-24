@@ -2154,8 +2154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04d78a3af1bc77f4ca1e5b81ed0ec2da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foodOrder: Lungs
-  clientTimer: 5
+  foodOrder: Burrito
+  clientTimer: 10
 --- !u!114 &2741724970176029192
 MonoBehaviour:
   m_ObjectHideFlags: 0

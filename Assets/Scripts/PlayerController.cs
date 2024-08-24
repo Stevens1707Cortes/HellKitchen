@@ -203,10 +203,14 @@ public class PlayerController : MonoBehaviour
 
         if (clientManager != null)
         {
-            if (clientManager.GetActiveClientCount() <= 0)
+            if (clientManager.GetActiveClientCount() <= 0 && clientManager.GetCorrectOrderCount() > clientManager.GetWrongOrderCount())
             {
                 isVictory = true;
                 GameManager.Instance.Victory();
+            }else if (clientManager.GetActiveClientCount() <= 0 && clientManager.GetCorrectOrderCount() < clientManager.GetWrongOrderCount())
+            {
+                isVictory = false;
+                GameManager.Instance.GameOver();
             }
         }
     }

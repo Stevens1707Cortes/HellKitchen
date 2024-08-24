@@ -3,19 +3,34 @@ using UnityEngine;
 public class Pickup : MonoBehaviour
 {   
     public string foodName;
-    public Transform pickupPoint;
-    // Start is called before the first frame update
+    [SerializeField] Transform pickupPoint;
+    private int originalLayer;
+    [SerializeField] int dinnerLayer;
+
+    private IngredientPooling poolingComponent;
+
+
     void Start()
     {
         pickupPoint = GameObject.Find("PSX_Arms").GetComponent<Transform>();
+        originalLayer = gameObject.layer;
+        dinnerLayer = GameObject.Find("DINER").layer;
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetPoolingComponent(IngredientPooling pooling)
     {
-        
+        poolingComponent = pooling;
+    }
+
+    void OnDisable()
+    {
+        if (poolingComponent != null)
+        {
+            poolingComponent.ReturnIngredientToPool(gameObject);
+        }
     }
 
     private void OnMouseDown() {
@@ -23,13 +38,15 @@ public class Pickup : MonoBehaviour
         GetComponent<Rigidbody>().useGravity = false;
         GetComponent<Rigidbody>().velocity = Vector3.zero;
         GetComponent<Rigidbody>().freezeRotation = true;
-        GetComponent<BoxCollider>().enabled = false;
+        //GetComponent<BoxCollider>().enabled = false;
+        gameObject.layer = dinnerLayer;
     }
 
     private void OnMouseUp() {
         transform.parent = null;
         GetComponent<Rigidbody>().useGravity = true;
-        GetComponent<BoxCollider>().enabled = true;
+        //GetComponent<BoxCollider>().enabled = true;
         GetComponent<Rigidbody>().freezeRotation = true;
+        gameObject.layer = originalLayer;
     }
 }

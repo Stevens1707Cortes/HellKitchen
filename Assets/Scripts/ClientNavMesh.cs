@@ -87,43 +87,4 @@ public class ClientNavMesh : MonoBehaviour
         }
     }
 
-    //private IEnumerator ArrivalEndPoint()
-    //{
-    //    // Espera segundos en el primer waitPoint
-    //    //yield return new WaitForSeconds(timer);
-
-    //    // Mueve el cliente al endPoint
-    //    MoveToPosition(endPoint.position);
-
-    //    // Espera hasta que el cliente llegue al endPoint
-    //    while (agent.remainingDistance > agent.stoppingDistance || agent.pathPending)
-    //    {
-    //        yield return null;
-    //    }
-
-    //    // Inicia la corrutina para destruir el cliente
-    //    if (clientBehavior != null)
-    //    {
-    //        clientBehavior.StartClientTimer();
-    //    }
-    //}
-
-    //private IEnumerator AttendedEndPoint()
-    //{
-    //    // Mueve el cliente al endPoint
-    //    MoveToPosition(endPoint.position);
-
-    //    // Espera hasta que el cliente llegue al endPoint
-    //    while (agent.remainingDistance > agent.stoppingDistance || agent.pathPending)
-    //    {
-    //        yield return null;
-    //    }
-
-    //    // Inicia la corrutina para destruir el cliente
-    //    if (clientBehavior != null)
-    //    {
-    //        clientBehavior.StartClientTimer();
-    //    }
-    //}
-
 }

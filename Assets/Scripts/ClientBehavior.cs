@@ -6,12 +6,9 @@ public class ClientBehavior : MonoBehaviour
     private ClientManager clientManager;
     private ClientLineManager lineManager;
     private ClientNavMesh navMesh;
+    private ClientOrder clientOrder;
 
-    // Colores para el cliente
-    //public Color colorVerde = Color.green;
-    //public Color colorMorado = Color.magenta;
-    //private Renderer rend;
-
+    
     // Temporizador Cliente
     [SerializeField] private string foodOrder;
     public float clientTimer;
@@ -19,7 +16,8 @@ public class ClientBehavior : MonoBehaviour
     //Animaciones
     private Animator animator;
     private bool isAttended = false;
-    
+    private bool isWrongOrder = false;
+
     //Evento para manejar la destruccion de cliente y quitarlo de las listas
     public delegate void ClientDestroyedAction();
     public event ClientDestroyedAction OnDestroyed;
@@ -36,14 +34,15 @@ public class ClientBehavior : MonoBehaviour
         clientManager = FindAnyObjectByType<ClientManager>();
         clientManager.RegisterClient(gameObject);
 
-        foodOrder = "Lungs";
+        clientOrder = GetComponent<ClientOrder>();
+
     }
 
     private void Update()
     {
         if (isAttended == false) 
         {
-            isAttended = gameObject.GetComponent<ClientOrder>().hasReceivedOrder;
+            isAttended = clientOrder.hasReceivedOrder;
         }
     }
 
@@ -54,27 +53,30 @@ public class ClientBehavior : MonoBehaviour
             if (other.gameObject.GetComponent<Pickup>().foodName == foodOrder)
             {
                 Destroy(other.gameObject);
-                //rend.material.color = colorVerde;
                 isAttended = true;
+                isWrongOrder = false;
             }
             else
             {
-                //rend.material.color = colorMorado;
-                isAttended = true;
+                Destroy(other.gameObject);
+                isAttended = false;
+                isWrongOrder = true;
             }
 
-            // Cancelar la espera si el cliente recibe el pedido
-            if (isAttended)
-            {
-                StopCoroutine(WaitAnimation());
-                HandleAttendedRoutines(); 
-            }
+            // Cancelar la espera si el cliente recibe el pedido (correcto o incorrecto)
+            StopCoroutine(WaitAnimation());
+            HandleAttendedRoutines();
+           
         }
 
         if (other.gameObject.CompareTag("Transformable"))
         {   
             Destroy(other.gameObject);
-            GameManager.Instance.GameOver();
+
+            isWrongOrder = true;
+
+            StopCoroutine(WaitAnimation());
+            HandleAttendedRoutines();
         }
         
     }
@@ -114,33 +116,40 @@ public class ClientBehavior : MonoBehaviour
 
     private IEnumerator WaitAnimation()
     {
-        // Esperar en el punto de espera 0 por el tiempo especificado en clientTimer
+        // Esperar el tiempo del clientTimer
         float elapsedTime = 0f;
         while (elapsedTime < clientTimer)
         {
-            if (isAttended)
+            if (isAttended || isWrongOrder) 
             {
-                break; 
+                break;
             }
 
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        // Verificar si el cliente fue atendido y ejecutar la animaci�n correspondiente
-        if (isAttended)
+        if (!isAttended)
         {
+            clientManager.SetWrongOrder();
+            animator.SetBool("isSad", true);
+        }
+
+        // Verificar si la orden fue correcta o no
+        if (isAttended && !isWrongOrder)
+        {
+            clientManager.SetCorrectOrder();
             animator.SetBool("isHappy", true);
         }
-        else
+        else if (isWrongOrder)
         {
+            clientManager.SetWrongOrder();
             animator.SetBool("isSad", true);
         }
 
 
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
 
-        // Caminar punto final
         navMesh.StartAttendedEndPoint(); 
         animator.SetBool("isWalking", true); 
     }

@@ -1,14 +1,14 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TransformationZone : MonoBehaviour
 {
-    public GameObject transformedObjectPrefab; // Prefab del objeto en el que quieres transformar
-    public string targetTag = "Transformable";
-    public GameObject progressBar;
-    public float transformationDelay = 3f;
+    [SerializeField] GameObject transformedObjectPrefab; // Prefab del objeto en el que quieres transformar
+    [SerializeField] string targetName;
+    [SerializeField] GameObject progressBar;
+    [SerializeField] float transformationDelay = 3f;
+    string targetTag = "Transformable";
 
 
     private void OnCollisionEnter(Collision collision)
@@ -16,18 +16,22 @@ public class TransformationZone : MonoBehaviour
         // Verifica si el objeto que entra tiene el tag adecuado
         if (collision.gameObject.CompareTag(targetTag))
         {
-            StartCoroutine(TransformObject(collision.gameObject));
+            if (collision.gameObject.GetComponent<Pickup>().foodName == targetName ) 
+            {
+                StartCoroutine(TransformObject(collision.gameObject));
 
-            // Obtén la posición y rotación del objeto actual
-            Vector3 position = collision.transform.position;
-            Quaternion rotation = collision.transform.rotation;
+                // Obtén la posición y rotación del objeto actual
+                Vector3 position = collision.transform.position;
+                Quaternion rotation = collision.transform.rotation;
 
-            // Destruye el objeto actual
-            // Destroy(other.gameObject);
-            collision.gameObject.SetActive(false);
+                // Destruye el objeto actual
+                // Destroy(other.gameObject);
+                collision.gameObject.SetActive(false);
 
-            // Instancia el nuevo objeto en la misma posición y rotación
-            // Instantiate(transformedObjectPrefab, position, rotation);
+                // Instancia el nuevo objeto en la misma posición y rotación
+                // Instantiate(transformedObjectPrefab, position, rotation);
+            }
+            
         }
     }
 
@@ -36,18 +40,21 @@ public class TransformationZone : MonoBehaviour
         // Verifica si el objeto que entra tiene el tag adecuado
         if (other.CompareTag(targetTag))
         {
-            StartCoroutine(TransformObject(other.gameObject));
-            
-            // Obtén la posición y rotación del objeto actual
-            Vector3 position = other.transform.position;
-            Quaternion rotation = other.transform.rotation;
+            if (other.gameObject.GetComponent<Pickup>().foodName == targetName)
+            {
+                StartCoroutine(TransformObject(other.gameObject));
 
-            // Destruye el objeto actual
-            // Destroy(other.gameObject);
-            other.gameObject.SetActive(false);
+                // Obtén la posición y rotación del objeto actual
+                Vector3 position = other.transform.position;
+                Quaternion rotation = other.transform.rotation;
 
-            // Instancia el nuevo objeto en la misma posición y rotación
-            // Instantiate(transformedObjectPrefab, position, rotation);
+                // Destruye el objeto actual
+                // Destroy(other.gameObject);
+                other.gameObject.SetActive(false);
+
+                // Instancia el nuevo objeto en la misma posición y rotación
+                // Instantiate(transformedObjectPrefab, position, rotation);
+            }
         }
     }
     private IEnumerator TransformObject(GameObject obj)
@@ -66,12 +73,14 @@ public class TransformationZone : MonoBehaviour
             yield return null;
         }
         
-        Instantiate(transformedObjectPrefab, obj.transform.position, obj.transform.rotation);
+        Instantiate(transformedObjectPrefab, obj.transform.position + new Vector3(0,0.5f,0), obj.transform.rotation);
 
         Destroy(obj);
         progressBar.SetActive(false);
         slider.value = 0;
-
+        
+        yield return new WaitForSeconds(1f);
+        progressBar.SetActive(true);
     }
 
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 public class ClientManager : MonoBehaviour
 {
     private HashSet<GameObject> activeClients = new HashSet<GameObject>();
+    private int correctOrders;
+    private int wrongOrders;
     void Start()
     {
         GameObject[] clients = GameObject.FindGameObjectsWithTag("Client");
@@ -27,4 +29,12 @@ public class ClientManager : MonoBehaviour
     {
         return activeClients.Count;
     }
+
+    public void SetCorrectOrder() { correctOrders++; }
+
+    public void SetWrongOrder() { wrongOrders++; }
+
+    public int GetWrongOrderCount() { return wrongOrders; }
+
+    public int GetCorrectOrderCount() { return correctOrders;}
 }

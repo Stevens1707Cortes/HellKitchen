@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2340751032224447040
+--- !u!1 &1975095466594456375
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,49 +8,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3760162718668036203}
-  - component: {fileID: 7537468848948615839}
-  - component: {fileID: 7685959118060772366}
-  - component: {fileID: 2587632596612352110}
-  - component: {fileID: 2587632596612352111}
-  - component: {fileID: 2587632596612352096}
+  - component: {fileID: 7340548133300387852}
+  - component: {fileID: 5551235192693520710}
+  - component: {fileID: 8947606686244789714}
   m_Layer: 0
-  m_Name: Heart
-  m_TagString: Transformable
+  m_Name: default
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3760162718668036203
+--- !u!4 &7340548133300387852
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2340751032224447040}
+  m_GameObject: {fileID: 1975095466594456375}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2622123430647013609}
+  m_Father: {fileID: 7903511201043968340}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &7537468848948615839
+--- !u!33 &5551235192693520710
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2340751032224447040}
-  m_Mesh: {fileID: -3676728085192693422, guid: c10b491f284b4c8478d3dec94369b190, type: 3}
---- !u!23 &7685959118060772366
+  m_GameObject: {fileID: 1975095466594456375}
+  m_Mesh: {fileID: -2432090755550338912, guid: b178f2df57898a144a86fe3b76feeb43, type: 3}
+--- !u!23 &8947606686244789714
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2340751032224447040}
+  m_GameObject: {fileID: 1975095466594456375}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -64,7 +61,13 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fd28959a48504a44fa67463017e85c42, type: 2}
+  - {fileID: -6443035220513836574, guid: b178f2df57898a144a86fe3b76feeb43, type: 3}
+  - {fileID: 2646190618815262879, guid: b178f2df57898a144a86fe3b76feeb43, type: 3}
+  - {fileID: -870952796764628979, guid: b178f2df57898a144a86fe3b76feeb43, type: 3}
+  - {fileID: -2669957238963622279, guid: b178f2df57898a144a86fe3b76feeb43, type: 3}
+  - {fileID: 269840283077852131, guid: b178f2df57898a144a86fe3b76feeb43, type: 3}
+  - {fileID: -364905699845747727, guid: b178f2df57898a144a86fe3b76feeb43, type: 3}
+  - {fileID: -3072155499180562189, guid: b178f2df57898a144a86fe3b76feeb43, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -86,50 +89,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!54 &2587632596612352110
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2340751032224447040}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 1
-  m_Constraints: 112
-  m_CollisionDetection: 1
---- !u!65 &2587632596612352111
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2340751032224447040}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 45.456375, y: 58.753204, z: 40.69871}
-  m_Center: {x: 2.540948, y: 29.3765, z: 1.2782784}
---- !u!114 &2587632596612352096
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2340751032224447040}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec442cab90171ed40bdc43e0ad475100, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  foodName: Crate
-  pickupPoint: {fileID: 0}
---- !u!1 &3398097802302192211
+--- !u!1 &7414395293715377134
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,27 +97,73 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2622123430647013609}
+  - component: {fileID: 7903511201043968340}
+  - component: {fileID: -5269649763824338377}
+  - component: {fileID: -2216073482024821119}
+  - component: {fileID: 4708923571903607743}
   m_Layer: 0
-  m_Name: Corazon
-  m_TagString: Untagged
+  m_Name: Burrito
+  m_TagString: Food
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2622123430647013609
+--- !u!4 &7903511201043968340
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3398097802302192211}
+  m_GameObject: {fileID: 7414395293715377134}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.95, y: 0.802, z: 15.419}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3760162718668036203}
+  - {fileID: 7340548133300387852}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &-5269649763824338377
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7414395293715377134}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.8392785, y: 0.655875, z: 0.69770706}
+  m_Center: {x: -0.29975042, y: -0.09970003, z: -0.012963593}
+--- !u!114 &-2216073482024821119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7414395293715377134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec442cab90171ed40bdc43e0ad475100, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foodName: Burrito
+  pickupPoint: {fileID: 0}
+--- !u!54 &4708923571903607743
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7414395293715377134}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
