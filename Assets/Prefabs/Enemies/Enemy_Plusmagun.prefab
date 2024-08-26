@@ -507,7 +507,7 @@ MonoBehaviour:
   chaseRange: 15
   attackRange: 10
   firePoint: {fileID: 444739374}
-  fireRate: 1
+  fireRate: 1.3
   fireVelocity: 20
   bulletPooling: {fileID: 444739375}
 --- !u!114 &2833774687382593126

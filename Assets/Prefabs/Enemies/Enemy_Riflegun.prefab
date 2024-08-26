@@ -205,7 +205,7 @@ MonoBehaviour:
   ingredientPrefab: {fileID: 0}
   attackRange: 20
   firePoint: {fileID: 308241357}
-  fireRate: 0.3
+  fireRate: 0.35
   fireVelocity: 30
   bulletPooling: {fileID: 308241358}
 --- !u!114 &135486399367846294

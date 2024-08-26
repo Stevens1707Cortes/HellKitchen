@@ -8292,10 +8292,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_Riflegun
       objectReference: {fileID: 0}
-    - target: {fileID: 945810864737532599, guid: af724a517ff61124db32dfb481efb189, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af724a517ff61124db32dfb481efb189, type: 3}
 --- !u!1001 &334976277200085880
