@@ -8,13 +8,26 @@ public class ClientSpawner : MonoBehaviour
     [SerializeField] private Transform[] spawnPoints; // Puntos de aparición
     [SerializeField] private int maxActiveClients = 5; // Máximo de clientes activos
     [SerializeField] private float spawnInterval = 3f; // Intervalo entre apariciones
+    [SerializeField] private PlayerData playerData;
 
     public int totalClientsToSpawn;
     private List<GameObject> activeClients = new List<GameObject>(); 
 
     void Start()
     {
+        SetClientsNumber(playerData.numberClients);
         StartCoroutine(SpawnClientsRoutine());
+    }
+
+    public void Initialize()
+    {
+        SetClientsNumber(playerData.numberClients);
+        StartCoroutine(SpawnClientsRoutine());
+    }
+
+    private void OnEnable()
+    {
+        Initialize();
     }
 
     public void SetClientsNumber(int clients)
@@ -33,6 +46,9 @@ public class ClientSpawner : MonoBehaviour
         {
             Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
             GameObject newClient = Instantiate(clientPrefab, spawnPoint.position, spawnPoint.rotation);
+
+            newClient.transform.SetParent(spawnPoint);
+
             activeClients.Add(newClient);
             totalClientsToSpawn--;
 

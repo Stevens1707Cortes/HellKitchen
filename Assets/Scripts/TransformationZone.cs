@@ -8,7 +8,10 @@ public class TransformationZone : MonoBehaviour
     [SerializeField] string targetName;
     [SerializeField] GameObject progressBar;
     [SerializeField] float transformationDelay = 3f;
-    [SerializeField] private IngredientPooling ingredientPooling; // Referencia al script de pooling
+    [SerializeField] private KidneyPooling kidneyPooling; // Referencia al script de pooling
+    [SerializeField] private HeartPooling heartPooling; // Referencia al script de pooling
+    [SerializeField] private BrainPooling brainPooling; // Referencia al script de pooling
+
     string targetTag = "Transformable";
 
 
@@ -42,8 +45,27 @@ public class TransformationZone : MonoBehaviour
             yield return null;
         }
 
-        // Desactiva el objeto original y lo devuelve al pool
-        ingredientPooling.ActivateOneIngredient(obj);
+        if (targetName == "Kidney")
+        {
+            kidneyPooling.countNumber--;
+            kidneyPooling.UpdatePlayerData();
+            kidneyPooling.countText.text = kidneyPooling.countNumber.ToString();
+            kidneyPooling.ActivateOneIngredient(obj);
+        }
+        else if(targetName == "Heart")
+        {
+            heartPooling.countNumber--;
+            heartPooling.UpdatePlayerData();
+            heartPooling.countText.text = heartPooling.countNumber.ToString();
+            heartPooling.ActivateOneIngredient(obj);
+        }
+        else if (targetName == "Brain")
+        {
+            brainPooling.countNumber--;
+            brainPooling.UpdatePlayerData();
+            brainPooling.countText.text = brainPooling.countNumber.ToString();
+            brainPooling.ActivateOneIngredient(obj);
+        }
 
         // Instancia el nuevo objeto transformado en la posición original del objeto
         Instantiate(transformedObjectPrefab, gameObject.transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);

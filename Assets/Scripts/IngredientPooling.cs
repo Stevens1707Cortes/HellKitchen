@@ -5,20 +5,20 @@ using UnityEngine;
 
 public class IngredientPooling : MonoBehaviour
 {
-    [SerializeField] private GameObject ingredientPrefab;
+    [SerializeField] protected GameObject ingredientPrefab;
     public Transform spawnPoint;
-    [SerializeField] private int ingredientsNumber;
-    [SerializeField] private int maxActivations; // Número máximo de ingredientes en el pool
-    [SerializeField] private int maxActiveIngredients = 1; // Máximo de ingredientes activos
+    [SerializeField] protected int ingredientsNumber;
+    [SerializeField] protected int maxActivations; // Número máximo de ingredientes en el pool
+    [SerializeField] protected int maxActiveIngredients = 1; // Máximo de ingredientes activos
 
-    [SerializeField] TMP_Text countText;
-    private int countNumber;
+    public TMP_Text countText;
+    public int countNumber;
 
-    private List<GameObject> ingredients;
-    private Quaternion originalRotation;
-    [SerializeField]private int activationCounts = 1;
+    protected List<GameObject> ingredients;
+    protected Quaternion originalRotation;
+    [SerializeField] protected int activationCounts = 0;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         // Inicializar la lista para los ingredientes
         ingredients = new List<GameObject>();
@@ -33,20 +33,27 @@ public class IngredientPooling : MonoBehaviour
         }
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         ActivateIngredient();
         countNumber = maxActivations;
         countText.text = countNumber.ToString();
     }
 
-    public void SetMaxActivation(int activations)
+    public virtual void Initialize()
+    {
+        ActivateIngredient();
+        countNumber = maxActivations;
+        countText.text = countNumber.ToString();
+    }
+
+    public virtual void SetMaxActivation(int activations)
     {
         maxActivations = activations;
     }
 
     // Método para activar un ingrediente
-    public GameObject ActivateIngredient()
+    public virtual GameObject ActivateIngredient()
     {
         if (activationCounts < maxActiveIngredients)
         {
@@ -58,8 +65,8 @@ public class IngredientPooling : MonoBehaviour
                     ingredient.transform.position = spawnPoint.position; // Posicionar en el punto de spawn
                     originalRotation = ingredient.transform.rotation;
                     activationCounts++;
-                    countNumber--;
-                    countText.text = countNumber.ToString();
+                    //countNumber--;
+                    //countText.text = countNumber.ToString();
                     return ingredient;
                 }
             }
@@ -68,7 +75,7 @@ public class IngredientPooling : MonoBehaviour
     }
 
     // Método para desactivar un ingrediente
-    public void DeactivateIngredient(GameObject ingredient)
+    public virtual void DeactivateIngredient(GameObject ingredient)
     {
         if (ingredient != null && ingredient.activeInHierarchy)
         {
@@ -77,7 +84,7 @@ public class IngredientPooling : MonoBehaviour
         }
     }
 
-    public void ActivateOneIngredient(GameObject ingredient)
+    public virtual void ActivateOneIngredient(GameObject ingredient)
     {
         if (ingredient != null && !ingredient.activeInHierarchy && activationCounts < maxActivations)
         {
@@ -85,8 +92,8 @@ public class IngredientPooling : MonoBehaviour
             ingredient.transform.position = spawnPoint.position;
             ingredient.SetActive(true);
             activationCounts++;
-            countNumber--;
-            countText.text = countNumber.ToString();
+            //countNumber--;
+            //countText.text = countNumber.ToString();
         }
     }
 }

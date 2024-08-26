@@ -15,6 +15,14 @@ public class ClientManager : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        foreach (var client in activeClients) 
+        {
+            Destroy(client);
+        }
+    }
+
     public void RegisterClient(GameObject client)
     {
         activeClients.Add(client);

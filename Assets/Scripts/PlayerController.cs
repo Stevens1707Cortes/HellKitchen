@@ -313,7 +313,6 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 Debug.Log("Pasando de nivel");
-                GameManager.Instance.LoadScene("StevenGym");
             }
 
         }

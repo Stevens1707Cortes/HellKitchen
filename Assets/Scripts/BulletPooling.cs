@@ -16,6 +16,7 @@ public class BulletPooling : MonoBehaviour
         for (int i = 0; i < number; i++)
         {
             GameObject bullet = Instantiate(bulletPrefab);
+            bullet.transform.SetParent(transform);
             bullet.SetActive(false);
             bulletList.Add(bullet);
         }

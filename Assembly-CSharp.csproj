@@ -129,6 +129,12 @@
     <Compile Include="Assets\Scripts\EnemyBulletController.cs" />
     <Compile Include="Assets\Scripts\AudioManager.cs" />
     <Compile Include="Assets\Scripts\LevelManager.cs" />
+    <Compile Include="Assets\Scripts\PlayerData.cs" />
+    <Compile Include="Assets\Scripts\KidneyPooling.cs" />
+    <Compile Include="Assets\Scripts\BrainPooling.cs" />
+    <Compile Include="Assets\Scripts\HeartPooling.cs" />
+    <Compile Include="Assets\Scripts\KitchenReset.cs" />
+    <Compile Include="Assets\Prefabs\Teleport.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

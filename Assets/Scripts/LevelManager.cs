@@ -5,6 +5,7 @@ public class LevelManager : MonoBehaviour
 {
     [SerializeField] GameObject[] dungeons;
     [SerializeField] GameObject kitchen;
+
     public bool isKitchen;
     public bool isDungeon;
 
@@ -28,6 +29,21 @@ public class LevelManager : MonoBehaviour
         else
         {
             UnloadDungeon(0);
+        }
+    }
+
+    public void ResetFood()
+    {
+        GameObject[] activeFood = GameObject.FindGameObjectsWithTag("Food");
+        foreach (var food in activeFood)
+        {
+            Destroy(food);
+        }
+
+        GameObject[] activeIngredient = GameObject.FindGameObjectsWithTag("Transformable");
+        foreach (var ingredient in activeIngredient)
+        {
+            Destroy(ingredient);
         }
     }
 
