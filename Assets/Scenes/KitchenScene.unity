@@ -1826,7 +1826,7 @@ PrefabInstance:
       objectReference: {fileID: 6995296753095788150, guid: 6f8806499c9d9d848ac506d74e328f74, type: 3}
     - target: {fileID: 1095979530275900820, guid: 4f9a77505af0f8540b29a403309b771f, type: 3}
       propertyPath: totalClientsToSpawn
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1095979530275900820, guid: 4f9a77505af0f8540b29a403309b771f, type: 3}
       propertyPath: spawnPoints.Array.data[0]
