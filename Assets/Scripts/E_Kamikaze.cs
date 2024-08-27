@@ -25,7 +25,6 @@ public class E_Kamikaze : Enemy
     public override void Die() 
     {
         base.Die();
-        Debug.Log("Spawn Ingrediente");
     }
 
     private void OnCollisionEnter(Collision collision)

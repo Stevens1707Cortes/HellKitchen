@@ -230,7 +230,7 @@ MonoBehaviour:
   enemyManager: {fileID: 0}
   navMeshController: {fileID: 0}
   currentState: 0
-  ingredientPrefab: {fileID: 0}
+  ingredientPrefab: {fileID: 5083813602213807837, guid: 5156008154fe668409586947bb9e2ff1, type: 3}
   attackRange: 3.7
   attackCollider: {fileID: 334976277860632219}
 --- !u!114 &334976277769743445

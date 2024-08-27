@@ -324,6 +324,7 @@ MonoBehaviour:
   enemyManager: {fileID: 0}
   navMeshController: {fileID: 0}
   currentState: 0
+  ingredientPrefab: {fileID: 6643880642209094100, guid: 746601ccb5cc71348a297b487e18b63a, type: 3}
 --- !u!1 &4522316678114307131
 GameObject:
   m_ObjectHideFlags: 0

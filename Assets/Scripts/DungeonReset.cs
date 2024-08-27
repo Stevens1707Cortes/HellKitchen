@@ -4,10 +4,11 @@ public class DungeonReset : MonoBehaviour
 {
     [SerializeField] EnemyManager enemyManager;
     [SerializeField] PlayerController playerController;
+    [SerializeField] PlayerData playerData;
 
-    private int kidneyCollected;
-    private int heartCollected;
-    private int brainCollected;
+    [SerializeField] private int kidneyCollected;
+    [SerializeField] private int heartCollected;
+    [SerializeField] private int brainCollected;
 
 
     private void OnEnable()
@@ -29,15 +30,18 @@ public class DungeonReset : MonoBehaviour
     public void AddBrain()
     {
         brainCollected++;
+        playerData.AddBrain();
     }
 
     public void AddHeart()
     {
         heartCollected++;
+        playerData.AddHeart();
     }
 
     public void AddKidney()
     {
         kidneyCollected++;
+        playerData.AddKidney();
     }
 }

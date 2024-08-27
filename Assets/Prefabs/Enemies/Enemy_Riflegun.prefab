@@ -202,7 +202,7 @@ MonoBehaviour:
   enemyManager: {fileID: 0}
   navMeshController: {fileID: 0}
   currentState: 0
-  ingredientPrefab: {fileID: 0}
+  ingredientPrefab: {fileID: 6643880642209094100, guid: 746601ccb5cc71348a297b487e18b63a, type: 3}
   attackRange: 20
   firePoint: {fileID: 308241357}
   fireRate: 0.35
