@@ -23,6 +23,9 @@ public class Gun : MonoBehaviour
     public Transform firePoint;
     public RectTransform sightCanvas;
 
+    [Header("Muzzle Flash")]
+    public ParticleSystem muzzleFlash; // Sistema de partículas del muzzle flash
+
     public virtual void Shoot()
     {
 
@@ -46,6 +49,16 @@ public class Gun : MonoBehaviour
         // Calcular la dirección desde el punto de disparo hacia el objetivo
         Vector3 direction = targetPoint - firePoint.position;
 
+        //Animacion de disparo
+        if (muzzleFlash != null)
+        {
+            // Reproducir el sistema de partículas
+            muzzleFlash.Play();
+
+            // Programar la detención del sistema de partículas después de su duración
+            Invoke("StopMuzzleFlash", muzzleFlash.main.duration);
+        }
+
         GameObject bullet = bulletPool.GetPooledBullet();
         if (bullet != null)
         {
@@ -58,6 +71,15 @@ public class Gun : MonoBehaviour
             {
                 rb.velocity = direction.normalized * 60f; // Ajusta la velocidad según sea necesario
             }
+        }
+
+    }
+
+    protected void StopMuzzleFlash()
+    {
+        if (muzzleFlash != null)
+        {
+            muzzleFlash.Stop(true, ParticleSystemStopBehavior.StopEmitting);
         }
     }
 
