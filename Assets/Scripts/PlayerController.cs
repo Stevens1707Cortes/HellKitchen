@@ -198,6 +198,7 @@ public class PlayerController : MonoBehaviour
             if (enemyManager.GetActiveEnemyCount() <= 0)
             {
                 isVictory = true;
+
                 GameManager.Instance.Victory();
             }
         }

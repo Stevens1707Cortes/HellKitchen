@@ -9,6 +9,8 @@ public class E_RifleGun : Enemy
     [SerializeField] private BulletPooling bulletPooling;
 
     private float nextFireTime = 0f;
+    private bool isSetBulletDamage = false;
+
     protected override void Start()
     {
         base.Start();
@@ -26,6 +28,12 @@ public class E_RifleGun : Enemy
         if (currentState == State.Idle && navMeshController.IsPlayerDetected())
         {
             SetState(State.Attacking);
+        }
+
+        if (!isSetBulletDamage)
+        {
+            bulletPooling.SetEnemyBulletsDamage(this.damage);
+            isSetBulletDamage = true;
         }
     }
 

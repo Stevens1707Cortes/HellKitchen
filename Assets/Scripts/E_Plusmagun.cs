@@ -10,12 +10,15 @@ public class E_Plusmagun : Enemy
     [SerializeField] private BulletPooling bulletPooling;
 
     private float nextFireTime = 0f;
-
+    private bool isSetBulletDamage = false;
+    protected override void Awake()
+    {
+        base.Awake();
+    }
     protected override void Start()
     {
         base.Start();
         this.enemyName = "Plusmagun";
-        bulletPooling.SetEnemyBulletsDamage(this.damage);
     }
 
     protected override void Update()
@@ -25,6 +28,12 @@ public class E_Plusmagun : Enemy
         if (isAttacking)
         {
             RotateTowardsPlayer();
+        }
+
+        if (!isSetBulletDamage)
+        {
+            bulletPooling.SetEnemyBulletsDamage(this.damage);
+            isSetBulletDamage = true;
         }
     }
 

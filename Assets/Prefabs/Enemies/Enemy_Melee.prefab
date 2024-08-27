@@ -224,6 +224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 80
+  originalHealth: 80
   damage: 5
   enemyName: 
   enemyAnimator: {fileID: 0}

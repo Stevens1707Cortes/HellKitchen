@@ -292,6 +292,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Kitchen_Prefab
       objectReference: {fileID: 0}
+    - target: {fileID: 1475696907030815953, guid: 965d6f531b7bcb04d9caca8361652c52, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1967801560271799345, guid: 965d6f531b7bcb04d9caca8361652c52, type: 3}
       propertyPath: playerData
       value: 
