@@ -3896,6 +3896,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1475696907030815952}
+  - component: {fileID: 596964970}
   m_Layer: 0
   m_Name: Kitchen_Prefab
   m_TagString: Untagged
@@ -3926,6 +3927,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &596964970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1475696907030815953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a42d7eee1e9c3084f836bdf8f72c77ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelManager: {fileID: 0}
 --- !u!1 &1475696907046815772
 GameObject:
   m_ObjectHideFlags: 0
@@ -14745,14 +14759,38 @@ PrefabInstance:
       propertyPath: countText
       value: 
       objectReference: {fileID: 1475696906637876847}
+    - target: {fileID: 1664787532365132668, guid: f0d7bae71daae7f4181bbbc9bae35c08, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1664787532581913546, guid: f0d7bae71daae7f4181bbbc9bae35c08, type: 3}
       propertyPath: countText
       value: 
       objectReference: {fileID: 9003870141612177384}
+    - target: {fileID: 1664787532581913546, guid: f0d7bae71daae7f4181bbbc9bae35c08, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1664787532581913546, guid: f0d7bae71daae7f4181bbbc9bae35c08, type: 3}
+      propertyPath: maxActivations
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1664787532581913546, guid: f0d7bae71daae7f4181bbbc9bae35c08, type: 3}
+      propertyPath: ingredientsNumber
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1664787532581913546, guid: f0d7bae71daae7f4181bbbc9bae35c08, type: 3}
+      propertyPath: maxActiveIngredients
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1664787532604978697, guid: f0d7bae71daae7f4181bbbc9bae35c08, type: 3}
       propertyPath: countText
       value: 
       objectReference: {fileID: 1475696907391934219}
+    - target: {fileID: 1664787532604978697, guid: f0d7bae71daae7f4181bbbc9bae35c08, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1664787533604811699, guid: f0d7bae71daae7f4181bbbc9bae35c08, type: 3}
       propertyPath: m_Name
       value: IngredientSpawner
@@ -14808,24 +14846,76 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1664787532604978702, guid: f0d7bae71daae7f4181bbbc9bae35c08, type: 3}
   m_PrefabInstance: {fileID: 243258101474512980}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1475696906506397275 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1664787532604978703, guid: f0d7bae71daae7f4181bbbc9bae35c08, type: 3}
+  m_PrefabInstance: {fileID: 243258101474512980}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &867686843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1475696906506397275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ee45bd378d96c14b924e2eae16f6e47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredientPrefab: {fileID: 6731013113466760704, guid: 211566caf1531d544a436d9695293a3c, type: 3}
+  spawnPoint: {fileID: 1475696906506397274}
+  ingredientsNumber: 1
+  maxActivations: 0
+  maxActiveIngredients: 1
+  countText: {fileID: 1475696907391934219}
+  countNumber: 0
+  activationCounts: 0
+  playerData: {fileID: 0}
 --- !u!114 &1475696906506397277 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1664787532604978697, guid: f0d7bae71daae7f4181bbbc9bae35c08, type: 3}
   m_PrefabInstance: {fileID: 243258101474512980}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_GameObject: {fileID: 1475696906506397275}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77bf6c96517b39c45968edb623b55952, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1475696906516861852 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1664787532581913544, guid: f0d7bae71daae7f4181bbbc9bae35c08, type: 3}
+  m_PrefabInstance: {fileID: 243258101474512980}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1726965615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1475696906516861852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f8d2c3dcce1b7b4ab96260432d48741, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredientPrefab: {fileID: 1832075479064058173, guid: 5e290ca3a7b38b149ba1ed07d937ecad, type: 3}
+  spawnPoint: {fileID: 1475696906516861855}
+  ingredientsNumber: 1
+  maxActivations: 0
+  maxActiveIngredients: 1
+  countText: {fileID: 9003870141612177384}
+  countNumber: 0
+  activationCounts: 0
+  playerData: {fileID: 0}
 --- !u!114 &1475696906516861854 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1664787532581913546, guid: f0d7bae71daae7f4181bbbc9bae35c08, type: 3}
   m_PrefabInstance: {fileID: 243258101474512980}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_GameObject: {fileID: 1475696906516861852}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77bf6c96517b39c45968edb623b55952, type: 3}
   m_Name: 
@@ -14840,13 +14930,39 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1664787533604811709, guid: f0d7bae71daae7f4181bbbc9bae35c08, type: 3}
   m_PrefabInstance: {fileID: 243258101474512980}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1475696907807400742 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1664787532365132658, guid: f0d7bae71daae7f4181bbbc9bae35c08, type: 3}
+  m_PrefabInstance: {fileID: 243258101474512980}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1003784344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1475696907807400742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f589bf6fba5ef8548945fa7610684c81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredientPrefab: {fileID: 2519324190599301993, guid: 4ed8f373b01d77e4e9415ab5594df2e4, type: 3}
+  spawnPoint: {fileID: 1475696907807400745}
+  ingredientsNumber: 1
+  maxActivations: 0
+  maxActiveIngredients: 1
+  countText: {fileID: 1475696906637876847}
+  countNumber: 0
+  activationCounts: 0
+  playerData: {fileID: 0}
 --- !u!114 &1475696907807400744 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1664787532365132668, guid: f0d7bae71daae7f4181bbbc9bae35c08, type: 3}
   m_PrefabInstance: {fileID: 243258101474512980}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_GameObject: {fileID: 1475696907807400742}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77bf6c96517b39c45968edb623b55952, type: 3}
   m_Name: 
@@ -14910,6 +15026,10 @@ PrefabInstance:
     - target: {fileID: 527621924237899247, guid: a32bba455b249db44b57b5f973b975f7, type: 3}
       propertyPath: m_Name
       value: Portal
+      objectReference: {fileID: 0}
+    - target: {fileID: 3355665744075483969, guid: a32bba455b249db44b57b5f973b975f7, type: 3}
+      propertyPath: isKitchen
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a32bba455b249db44b57b5f973b975f7, type: 3}
@@ -16545,6 +16665,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5315124433556378490, guid: d92471a70d409464da59b2b2af4ce383, type: 3}
+      propertyPath: brainPooling
+      value: 
+      objectReference: {fileID: 867686843}
+    - target: {fileID: 5315124433556378490, guid: d92471a70d409464da59b2b2af4ce383, type: 3}
+      propertyPath: heartPooling
+      value: 
+      objectReference: {fileID: 1003784344}
+    - target: {fileID: 5315124433556378490, guid: d92471a70d409464da59b2b2af4ce383, type: 3}
+      propertyPath: kidneyPooling
+      value: 
+      objectReference: {fileID: 1726965615}
+    - target: {fileID: 5315124433556378490, guid: d92471a70d409464da59b2b2af4ce383, type: 3}
       propertyPath: ingredientPooling
       value: 
       objectReference: {fileID: 1475696907807400744}
@@ -16680,6 +16812,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3891342434520951177, guid: 97c44e00fa2c128408e7aff47122d952, type: 3}
+      propertyPath: brainPooling
+      value: 
+      objectReference: {fileID: 867686843}
+    - target: {fileID: 3891342434520951177, guid: 97c44e00fa2c128408e7aff47122d952, type: 3}
+      propertyPath: heartPooling
+      value: 
+      objectReference: {fileID: 1003784344}
+    - target: {fileID: 3891342434520951177, guid: 97c44e00fa2c128408e7aff47122d952, type: 3}
+      propertyPath: kidneyPooling
+      value: 
+      objectReference: {fileID: 1726965615}
     - target: {fileID: 3891342434520951177, guid: 97c44e00fa2c128408e7aff47122d952, type: 3}
       propertyPath: ingredientPooling
       value: 
@@ -16896,6 +17040,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1475696906840298737}
     m_Modifications:
+    - target: {fileID: 1175043791021225635, guid: f6f42d608b6b4cc409516e3e5eed74db, type: 3}
+      propertyPath: brainPooling
+      value: 
+      objectReference: {fileID: 867686843}
+    - target: {fileID: 1175043791021225635, guid: f6f42d608b6b4cc409516e3e5eed74db, type: 3}
+      propertyPath: heartPooling
+      value: 
+      objectReference: {fileID: 1003784344}
+    - target: {fileID: 1175043791021225635, guid: f6f42d608b6b4cc409516e3e5eed74db, type: 3}
+      propertyPath: kidneyPooling
+      value: 
+      objectReference: {fileID: 1726965615}
     - target: {fileID: 1175043791021225635, guid: f6f42d608b6b4cc409516e3e5eed74db, type: 3}
       propertyPath: ingredientPooling
       value: 

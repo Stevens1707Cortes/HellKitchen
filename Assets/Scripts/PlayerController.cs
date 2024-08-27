@@ -28,13 +28,13 @@ public class PlayerController : MonoBehaviour
     [Header("Damage Settings")]
     [SerializeField] private float damageCooldown = 5f; 
     private bool canTakeDamage = true;
-    [SerializeField] private EnemyManager enemyManager;
+    public EnemyManager enemyManager;
 
     [Header("Player Canvas Settings")]
-    [SerializeField] private GameObject canvasDoor;
     [SerializeField] private TMP_Text lifeCanvas;
 
     private ClientManager clientManager;
+    [SerializeField] private LevelManager levelManager;
 
     private Vector3 pushDirection = Vector3.zero;
     private float pushTime = 0;
@@ -47,10 +47,11 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        //Manager sobre el estado de clientes y enemigos
 
-        //Comprobar escena de Dungeon, y habilitar el cambio de arma
-        //canSwitch = GameManager.Instance.IsCurrentScene("StevenGym");
-        canSwitch = true;
+        //enemyManager = FindObjectOfType<EnemyManager>();
+        clientManager = FindObjectOfType<ClientManager>();
+        levelManager = FindObjectOfType<LevelManager>();
 
         //Configurar armas
         if (weapons.Count > 0)
@@ -59,12 +60,6 @@ public class PlayerController : MonoBehaviour
             weapons[1].SetActive(false);
         }
 
-        //Canvas
-
-        if(canvasDoor != null)
-        {
-            canvasDoor.SetActive(false);
-        }
 
         if (lifeCanvas != null)
         {
@@ -76,11 +71,6 @@ public class PlayerController : MonoBehaviour
             GameManager.Instance.HideAll();
             GameManager.Instance.TimeScale();
         }
-
-        //Manager sobre el estado de clientes y enemigos
-
-        enemyManager = FindObjectOfType<EnemyManager>();
-        clientManager = FindObjectOfType<ClientManager>();
        
         
     }
@@ -112,6 +102,17 @@ public class PlayerController : MonoBehaviour
 
         // Actualizacion de la gravedad
         velocity.y += gravity * Time.deltaTime;
+
+
+        //Comprobar escena de Dungeon, y habilitar el cambio de arma
+        if (!levelManager.isKitchen && levelManager.isDungeon)
+        {
+            canSwitch = true;
+        }
+        else
+        {
+            canSwitch = false;
+        }
 
         //Cambio de arma
         if (canSwitch)
@@ -301,32 +302,4 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.CompareTag("Door"))
-        {
-            if (canvasDoor != null)
-            {
-                canvasDoor.SetActive(true);
-            }
-
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                Debug.Log("Pasando de nivel");
-            }
-
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Door"))
-        {
-            if (canvasDoor != null)
-            {
-                canvasDoor.SetActive(false);
-            }
-
-        }
-    }
 }

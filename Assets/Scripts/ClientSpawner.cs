@@ -10,6 +10,8 @@ public class ClientSpawner : MonoBehaviour
     [SerializeField] private float spawnInterval = 3f; // Intervalo entre apariciones
     [SerializeField] private PlayerData playerData;
 
+    private bool isStart = true;
+
     public int totalClientsToSpawn;
     private List<GameObject> activeClients = new List<GameObject>(); 
 
@@ -17,6 +19,7 @@ public class ClientSpawner : MonoBehaviour
     {
         SetClientsNumber(playerData.numberClients);
         StartCoroutine(SpawnClientsRoutine());
+        isStart = false;
     }
 
     public void Initialize()
@@ -27,7 +30,10 @@ public class ClientSpawner : MonoBehaviour
 
     private void OnEnable()
     {
-        Initialize();
+        if (!isStart) 
+        {
+            Initialize();
+        }
     }
 
     public void SetClientsNumber(int clients)

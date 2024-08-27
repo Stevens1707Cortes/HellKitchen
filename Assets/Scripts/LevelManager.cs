@@ -13,7 +13,11 @@ public class LevelManager : MonoBehaviour
     {
         isKitchen = true;
         isDungeon = false;
-        dungeons[0].SetActive(false);
+
+        foreach (var dungeon in dungeons) 
+        {
+            dungeon.SetActive(false);
+        }
     }
 
     private void Start()
@@ -22,14 +26,7 @@ public class LevelManager : MonoBehaviour
 
     private void Update()
     {
-        if (!isKitchen)
-        {
-            LoadDungeon(0);
-        }
-        else
-        {
-            UnloadDungeon(0);
-        }
+        
     }
 
     public void ResetFood()

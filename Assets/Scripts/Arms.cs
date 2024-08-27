@@ -7,25 +7,23 @@ public class Arms : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject collider1, collider2;
 
-
+    private LevelManager levelManager;
     private float nextAttack = 0f; // Tiempo hasta el próximo ataque permitido
     public float attackRate = 0.5f; // Tiempo entre ataques
     private bool isRightHandAttack = true; // Comienza con el ataque de la mano derecha
 
     //Temporal
-    private bool isKitchen = false;
 
     private void Start()
     {
         collider1.SetActive(false);
         collider2.SetActive(false);
-
-        isKitchen = true;
+        levelManager = FindAnyObjectByType<LevelManager>();
     }
 
     private void Update()
     {
-        if (!isKitchen)
+        if (!levelManager.isKitchen && levelManager.isDungeon)
         {
             if (Input.GetButton("Fire1") && Time.time >= nextAttack)
             {

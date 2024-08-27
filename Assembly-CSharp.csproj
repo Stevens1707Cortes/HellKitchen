@@ -135,6 +135,9 @@
     <Compile Include="Assets\Scripts\HeartPooling.cs" />
     <Compile Include="Assets\Scripts\KitchenReset.cs" />
     <Compile Include="Assets\Prefabs\Teleport.cs" />
+    <Compile Include="Assets\Prefabs\TeleportManager.cs" />
+    <Compile Include="Assets\Scripts\DungeonReset.cs" />
+    <Compile Include="Assets\Scripts\IngredientLoot.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
