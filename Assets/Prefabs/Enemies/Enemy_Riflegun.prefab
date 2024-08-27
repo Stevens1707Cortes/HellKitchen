@@ -195,14 +195,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c46304ec0e4c6f42a7c455f8d4c4f66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  damage: 50
+  health: 30
+  originalHealth: 30
+  damage: 25
   enemyName: 
   enemyAnimator: {fileID: 0}
   enemyManager: {fileID: 0}
   navMeshController: {fileID: 0}
   currentState: 0
-  ingredientPrefab: {fileID: 0}
+  ingredientPrefab: {fileID: 6643880642209094100, guid: 746601ccb5cc71348a297b487e18b63a, type: 3}
   attackRange: 20
   firePoint: {fileID: 308241357}
   fireRate: 0.35

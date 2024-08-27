@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
     private HashSet<GameObject> activeEnemies = new HashSet<GameObject>();
+    [SerializeField] private int enemiesCount;
 
     void Start()
     {
@@ -13,6 +14,31 @@ public class EnemyManager : MonoBehaviour
         foreach (var enemy in enemies)
         {
             activeEnemies.Add(enemy);
+        }
+
+        enemiesCount = GetActiveEnemyCount();
+    }
+
+    private void OnEnable()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (var enemy in enemies)
+        {
+            activeEnemies.Add(enemy);
+        }
+
+        enemiesCount = GetActiveEnemyCount();
+    }
+
+    private void OnDisable()
+    {
+        activeEnemies.Clear();
+        enemiesCount = 0;
+
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (var enemy in enemies)
+        {
+            enemy.SetActive(false);
         }
     }
 

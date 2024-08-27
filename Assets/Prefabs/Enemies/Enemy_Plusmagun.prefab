@@ -497,13 +497,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  originalHealth: 100
   damage: 1
   enemyName: 
   enemyAnimator: {fileID: 0}
   enemyManager: {fileID: 0}
   navMeshController: {fileID: 0}
   currentState: 0
-  ingredientPrefab: {fileID: 0}
+  ingredientPrefab: {fileID: 2941382556076525472, guid: 7fb47f3827b46f440ad0ae1e31c37638, type: 3}
   chaseRange: 15
   attackRange: 10
   firePoint: {fileID: 444739374}

@@ -3,6 +3,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] protected int health;
+    [SerializeField] protected int originalHealth;
     public int damage;
     public string enemyName;
     [SerializeField] protected Animator enemyAnimator;
@@ -22,6 +23,11 @@ public class Enemy : MonoBehaviour
     [SerializeField] GameObject ingredientPrefab;
     private bool hasInstantiated = false;
 
+    protected virtual void Awake()
+    {
+        enemyManager = FindObjectOfType<EnemyManager>();
+    }
+
     protected virtual void Start()
     {
         navMeshController = gameObject.GetComponent<NavMeshController>();
@@ -29,7 +35,14 @@ public class Enemy : MonoBehaviour
         currentState = State.Idle;
 
         //Conteo de enemigos
-        enemyManager = FindObjectOfType<EnemyManager>();
+        enemyManager.RegisterEnemy(gameObject);
+    }
+
+    private void OnEnable()
+    {
+        gameObject.GetComponent<Collider>().enabled = true;
+        currentState = State.Idle;
+        health = originalHealth;
         enemyManager.RegisterEnemy(gameObject);
     }
 
@@ -143,8 +156,8 @@ public class Enemy : MonoBehaviour
         {
             LootIngredient(ingredientPrefab);
         }
-        //gameObject.SetActive(false);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+        //Destroy(gameObject);
     }
 
     protected virtual void LootIngredient(GameObject ingredient)

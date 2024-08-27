@@ -16,13 +16,16 @@ public class NavMeshController : MonoBehaviour
     // Variables para ajustar la separación
     [SerializeField] private float randomOffsetRange = 21.0f;
     [SerializeField] private float speedVariation = 0.5f;
+
+    private void Awake()
+    {
+        originalPosition = transform.position;
+    }
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
 
         playerPosition = GameObject.Find("Player").transform;
-
-        originalPosition = transform.position;
 
         // Ajustar velocidad con una ligera variación
         agent.speed += Random.Range(-speedVariation, speedVariation);
@@ -31,6 +34,11 @@ public class NavMeshController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnEnable()
+    {
+        transform.position = originalPosition;
     }
 
     public void MoveEnemy()

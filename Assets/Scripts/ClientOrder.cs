@@ -20,7 +20,7 @@ public class ClientOrder : MonoBehaviour
         orderText = GetComponent<ClientBehavior>().foodOrder;
         textCanvas.text = orderText;
 
-        player = GameObject.Find("PlayerFPS");
+        player = GameObject.Find("Player");
     }
 
     void Update()

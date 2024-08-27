@@ -9,10 +9,22 @@ public class E_Kamikaze : Enemy
 
     }
 
+    protected override void IdleBehavior()
+    {
+        enemyAnimator.SetBool("isMoving", false);
+        enemyAnimator.SetBool("isDead", false);
+        enemyAnimator.SetBool("isHitted", false);
+
+        // Cambiar al estado Chasing si el jugador es detectado
+        if (navMeshController.IsPlayerDetected())
+        {
+            SetState(State.Chasing);
+        }
+    }
+
     public override void Die() 
     {
         base.Die();
-        Debug.Log("Spawn Ingrediente");
     }
 
     private void OnCollisionEnter(Collision collision)
