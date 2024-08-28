@@ -52,6 +52,7 @@ public class DungeonReset : MonoBehaviour
     {
         characterController = player.GetComponent<CharacterController>();
 
+        playerController.ReturnInitialWeapon();
         playerController.enemyManager = null;
         characterController.radius = 0.5f;
         characterController.height = 2.5f;

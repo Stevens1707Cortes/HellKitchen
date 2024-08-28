@@ -50,6 +50,7 @@ public class ClientBehavior : MonoBehaviour
         {
             isAttended = clientOrder.hasReceivedOrder;
         }
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -61,12 +62,14 @@ public class ClientBehavior : MonoBehaviour
                 Destroy(other.gameObject);
                 isAttended = true;
                 isWrongOrder = false;
+                clientManager.SetCorrectOrder();
             }
             else
             {
                 Destroy(other.gameObject);
                 isAttended = false;
                 isWrongOrder = true;
+                clientManager.SetWrongOrder();
             }
 
             // Cancelar la espera si el cliente recibe el pedido (correcto o incorrecto)
@@ -80,6 +83,7 @@ public class ClientBehavior : MonoBehaviour
             Destroy(other.gameObject);
 
             isWrongOrder = true;
+            clientManager.SetWrongOrder();
 
             StopCoroutine(WaitAnimation());
             HandleAttendedRoutines();
@@ -106,6 +110,11 @@ public class ClientBehavior : MonoBehaviour
 
     private void DestroyClient()
     {
+        if (isAttended == false)
+        {
+            clientManager.SetWrongOrder();
+        }
+
         lineManager.DequeueClient();
 
         // Notificar al ClientManager que el cliente est� siendo destruido
@@ -149,19 +158,16 @@ public class ClientBehavior : MonoBehaviour
 
         if (!isAttended)
         {
-            clientManager.SetWrongOrder();
             animator.SetBool("isSad", true);
         }
 
         // Verificar si la orden fue correcta o no
         if (isAttended && !isWrongOrder)
         {
-            clientManager.SetCorrectOrder();
             animator.SetBool("isHappy", true);
         }
         else if (isWrongOrder)
         {
-            clientManager.SetWrongOrder();
             animator.SetBool("isSad", true);
         }
 

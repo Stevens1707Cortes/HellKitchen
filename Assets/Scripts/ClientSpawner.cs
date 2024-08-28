@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ClientSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject clientPrefab; // Prefab del cliente
+    [SerializeField] private GameObject[] clientsPrefabs; // Arreglo de prefabs de clientes
     [SerializeField] private Transform[] spawnPoints; // Puntos de aparición
     [SerializeField] private int maxActiveClients = 5; // Máximo de clientes activos
     [SerializeField] private float spawnInterval = 3f; // Intervalo entre apariciones
@@ -24,6 +24,7 @@ public class ClientSpawner : MonoBehaviour
 
     public void Initialize()
     {
+        playerData.AddClient();
         SetClientsNumber(playerData.numberClients);
         StartCoroutine(SpawnClientsRoutine());
     }
@@ -51,7 +52,8 @@ public class ClientSpawner : MonoBehaviour
         if (activeClients.Count < maxActiveClients && totalClientsToSpawn > 0)
         {
             Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-            GameObject newClient = Instantiate(clientPrefab, spawnPoint.position, spawnPoint.rotation);
+            GameObject randomClientPrefab = clientsPrefabs[Random.Range(0, clientsPrefabs.Length)];
+            GameObject newClient = Instantiate(randomClientPrefab, spawnPoint.position, spawnPoint.rotation);
 
             newClient.transform.SetParent(spawnPoint);
 

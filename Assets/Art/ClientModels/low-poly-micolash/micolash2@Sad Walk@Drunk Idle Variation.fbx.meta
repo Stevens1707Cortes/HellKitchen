@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2164a7f7eda696c4684fec9354650876
+guid: c819d36f77ad2ec44ae5af5425b84315
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Walking
+      name: Sad Walk@Drunk Idle Variation
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 41
+      lastFrame: 119
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

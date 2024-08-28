@@ -5,8 +5,8 @@ public class ClientManager : MonoBehaviour
 {
     [SerializeField] private ClientLineManager lineManager;
     private HashSet<GameObject> activeClients = new HashSet<GameObject>();
-    private int correctOrders;
-    private int wrongOrders;
+    public int correctOrders;
+    public int wrongOrders;
 
     void Start()
     {

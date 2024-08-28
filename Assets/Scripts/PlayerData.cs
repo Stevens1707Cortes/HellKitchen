@@ -22,6 +22,11 @@ public class PlayerData : MonoBehaviour
         
     }
 
+    public void AddClient()
+    {
+        numberClients += 2;
+    }
+
     public void AddKidney()
     {
         numberKidney++;

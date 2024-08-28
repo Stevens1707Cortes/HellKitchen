@@ -31,7 +31,9 @@ public class PlayerController : MonoBehaviour
     public EnemyManager enemyManager;
 
     [Header("Player Canvas Settings")]
-    [SerializeField] private TMP_Text lifeCanvas;
+    [SerializeField] private Gun gun1, gun2;
+    [SerializeField] private TMP_Text lifeText, gunText1, gunText2, clientsText1, clientsText2;
+    [SerializeField] private GameObject controls, gunCanvas1, gunCanvas2, clientsCanvas1, clientsCanvas2;
 
     private ClientManager clientManager;
     [SerializeField] private LevelManager levelManager;
@@ -47,7 +49,11 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        //Manager sobre el estado de clientes y enemigos
+        //Canvas
+        DisableCanvas();
+        gunText1.text = gun1.currentAmmo.ToString();
+        gunText2.text = gun2.currentAmmo.ToString();
+
 
         //enemyManager = FindObjectOfType<EnemyManager>();
         clientManager = FindObjectOfType<ClientManager>();
@@ -61,9 +67,9 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        if (lifeCanvas != null)
+        if (lifeText != null)
         {
-            lifeCanvas.text = "Life: " + maxHealth + " / " + health;
+            lifeText.text = maxHealth + " / " + health;
         }
 
         if (GameManager.Instance != null)
@@ -108,10 +114,27 @@ public class PlayerController : MonoBehaviour
         if (!levelManager.isKitchen && levelManager.isDungeon)
         {
             canSwitch = true;
+
+            clientsCanvas1.SetActive(false);
+            clientsCanvas2.SetActive(false);
+
+            gunCanvas1.SetActive(true);
+            gunText1.text = gun1.currentAmmo.ToString();
+            gunCanvas2.SetActive(true);
+            gunText2.text = gun2.currentAmmo.ToString();
         }
         else
         {
             canSwitch = false;
+
+            gunCanvas1.SetActive(false);
+            gunCanvas2.SetActive(false);
+
+            clientsCanvas1.SetActive(true);
+            clientsText1.text = clientManager.wrongOrders.ToString();
+
+            clientsCanvas2.SetActive(true);
+            clientsText2.text = clientManager.correctOrders.ToString();
         }
 
         //Cambio de arma
@@ -157,6 +180,18 @@ public class PlayerController : MonoBehaviour
         GameOver();
     }
 
+    public void ReturnInitialWeapon()
+    {
+        // Desactivar el arma actual
+        weapons[currentWeaponIndex].SetActive(false);
+
+        // Activar la primera arma en la lista
+        weapons[0].SetActive(true);
+
+        // Actualizar el índice del arma actual
+        currentWeaponIndex = 0;
+    }
+
     private IEnumerator ChangeWeapon()
     {
         isChangingWeapon = true;
@@ -178,7 +213,7 @@ public class PlayerController : MonoBehaviour
     public void PlayerTakeDamage(int damage)
     {
         health -= damage;
-        lifeCanvas.text = "Life: " + maxHealth + " / " + health;
+        lifeText.text = maxHealth + " / " + health;
         if (health <= 0) 
         { 
             PlayerDie();
@@ -246,6 +281,15 @@ public class PlayerController : MonoBehaviour
         pushTime = 0.2f;
     }
 
+    //Canvas
+    public void DisableCanvas()
+    {
+        controls.SetActive(false);
+        gunCanvas1.SetActive(false);
+        gunCanvas2.SetActive(false);
+        clientsCanvas1.SetActive(false);
+        clientsCanvas2.SetActive(false);
+    }
 
     //Colisiones
 

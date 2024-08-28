@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ClientOrder : MonoBehaviour
 {
@@ -9,8 +10,11 @@ public class ClientOrder : MonoBehaviour
     private float activationDistance = 5f; // Distancia mínima para activar el texto
 
     [SerializeField] private Canvas dialogCanvas;
-    [SerializeField] private TMP_Text textCanvas;
+    [SerializeField] private Image orderImage;
 
+    [SerializeField] private Sprite hamburgerSprite;
+    [SerializeField] private Sprite sandwichSprite;
+    [SerializeField] private Sprite burritoSprite;
 
     public bool hasReceivedOrder = false;
     
@@ -18,7 +22,20 @@ public class ClientOrder : MonoBehaviour
     {
         dialogCanvas.gameObject.SetActive(false); 
         orderText = GetComponent<ClientBehavior>().foodOrder;
-        textCanvas.text = orderText;
+
+        // Asignar la imagen correspondiente a la orden
+        switch (orderText)
+        {
+            case "Hamburguer":
+                orderImage.sprite = hamburgerSprite;
+                break;
+            case "Sandwich":
+                orderImage.sprite = sandwichSprite;
+                break;
+            case "Burrito":
+                orderImage.sprite = burritoSprite;
+                break;
+        }
 
         player = GameObject.Find("Player");
     }
