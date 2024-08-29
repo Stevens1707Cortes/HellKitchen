@@ -1,9 +1,15 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private UIManager uiUXManager;
+
+    [Header("Loading Screen")]
+    [SerializeField] private GameObject loadingScreen;
+    [SerializeField] private float loadingDuration = 2f;
+
     public static GameManager Instance;
     public GameState state;
 
@@ -46,6 +52,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private IEnumerator ShowLoadingScreen()
+    {
+        if (loadingScreen != null)
+        {
+            loadingScreen.SetActive(true); // Muestra la pantalla de carga
+
+            yield return new WaitForSeconds(loadingDuration); // Espera la duración especificada
+
+            loadingScreen.SetActive(false); // Oculta la pantalla de carga
+        }
+    }
+
     public void HideAll()
     {
         uiUXManager.HideGameOver();
@@ -73,6 +91,8 @@ public class GameManager : MonoBehaviour
     // Funci�n para cambiar a la escena 
     public void LoadScene(string nameEscene)
     {
+        StartCoroutine(ShowLoadingScreen());
+
         if (nameEscene == "Main")
         {
             uiUXManager.HideMainMenu();

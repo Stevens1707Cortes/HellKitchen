@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -44,10 +45,7 @@ public class LevelManager : MonoBehaviour
 
     }
 
-    private void Update()
-    {
-        
-    }
+   
 
     //Manejo del estado de los niveles
     public void ResetFood()
