@@ -10,13 +10,17 @@ public class ShotGun : Gun
 
     [SerializeField] private float recoilRotationForce = 20f; //Angulo para rotar al disparar
     //[SerializeField] private Transform gunTransform;
+    private void Awake()
+    {
+        this.currentAmmo = 12;
+        this.maxAmmo = this.currentAmmo;
+    }
 
     void Start()
     {   
         //Inicializar stats
         this.gunName = gameObject.name;
-        this.currentAmmo = 12;
-        this.maxAmmo = this.currentAmmo;
+        
         this.fireRate = 1f;
 
 
@@ -80,6 +84,7 @@ public class ShotGun : Gun
     public override void Shoot()
     {
         base.Shoot();
+        AudioManager.Instance.PlayEffect(AudioManager.Instance.shotgunClip);
         Recoil();
         currentAmmo--;
     }

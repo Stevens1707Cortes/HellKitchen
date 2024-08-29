@@ -36,6 +36,9 @@ public class TransformationZone : MonoBehaviour
         progressBar.SetActive(true);
         Slider slider = progressBar.GetComponent<Slider>();
 
+        // Reproducir sonido
+        AudioManager.Instance.PlayEffect(AudioManager.Instance.stoveClip);
+
         float elapsedTime = 0f;
 
         while (elapsedTime < transformationDelay)
@@ -69,6 +72,9 @@ public class TransformationZone : MonoBehaviour
 
         // Instancia el nuevo objeto transformado en la posición original del objeto
         Instantiate(transformedObjectPrefab, gameObject.transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
+
+        //Detener sonido
+        AudioManager.Instance.StopEffect(AudioManager.Instance.stoveClip);
 
         // Desactiva la barra de progreso y reinicia su valor
         progressBar.SetActive(false);

@@ -11,10 +11,10 @@ public class PlayerData : MonoBehaviour
     private void Awake()
     {
         day = 1;
-        numberClients = 3;
-        numberBrain = 5;
-        numberKidney = 5;
-        numberHeart = 5;
+        numberClients = 5;
+        numberBrain = 2;
+        numberKidney = 2;
+        numberHeart = 2;
     }
 
     private void Start()

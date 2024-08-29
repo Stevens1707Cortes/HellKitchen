@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     [Header("Player Canvas Settings")]
     [SerializeField] private Gun gun1, gun2;
     [SerializeField] private TMP_Text lifeText, gunText1, gunText2, clientsText1, clientsText2;
-    [SerializeField] private GameObject controls, gunCanvas1, gunCanvas2, clientsCanvas1, clientsCanvas2;
+    [SerializeField] private GameObject controls, gunCanvas1, gunCanvas2, clientsCanvas1, clientsCanvas2, controlCanvas, adviseCanvas;
 
     private ClientManager clientManager;
     [SerializeField] private LevelManager levelManager;
@@ -55,6 +55,8 @@ public class PlayerController : MonoBehaviour
         gunText1.text = gun1.currentAmmo.ToString();
         gunText2.text = gun2.currentAmmo.ToString();
 
+        controlCanvas.SetActive(true);
+        adviseCanvas.SetActive(true);
 
         //enemyManager = FindObjectOfType<EnemyManager>();
         clientManager = FindObjectOfType<ClientManager>();
@@ -90,6 +92,13 @@ public class PlayerController : MonoBehaviour
 
         Vector3 move = transform.right * x + transform.forward * z;
         controller.Move(move * speed * Time.deltaTime);
+
+        //Comprobar si se mueve
+        if (x != 0 || z != 0)
+        {
+            controlCanvas.SetActive(false);
+            adviseCanvas.SetActive(false);
+        }
 
         // Mover el jugador en el eje Y
         controller.Move(velocity * Time.deltaTime);
@@ -244,7 +253,7 @@ public class PlayerController : MonoBehaviour
 
     public void VictoryKitchen()
     {
-        if (clientManager != null)
+        if (clientManager != null )
         {
             if (clientManager.GetActiveClientCount() <= 0 && clientManager.GetCorrectOrderCount() > clientManager.GetWrongOrderCount() && isKitchenVictory == false)
             {

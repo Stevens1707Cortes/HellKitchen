@@ -19,6 +19,7 @@ public class ClientBehavior : MonoBehaviour
     private Animator animator;
     private bool isAttended = false;
     private bool isWrongOrder = false;
+    private bool isTimeUp = false;
 
     //Evento para manejar la destruccion de cliente y quitarlo de las listas
     public delegate void ClientDestroyedAction();
@@ -56,7 +57,7 @@ public class ClientBehavior : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Food"))
+        if(other.gameObject.CompareTag("Food") && !isTimeUp)
         {
             if (other.gameObject.GetComponent<Pickup>().foodName == foodOrder)
             {
@@ -156,6 +157,8 @@ public class ClientBehavior : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+
+        isTimeUp = true;
 
         if (!isAttended)
         {

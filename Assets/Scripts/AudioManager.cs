@@ -4,7 +4,14 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }
 
-    [SerializeField] AudioSource music, soundEffects;
+    [Header("Player Config")]
+    [SerializeField] AudioSource music, soundEffects, enemyEffect;
+
+    [Header("Music Clips")]
+    public AudioClip menuClip, kitchenClip, dungeonClip;
+
+    [Header("SFX Clips")]
+    public AudioClip plasmaClip, shotgunClip, deathClip, stoveClip;
 
     private void Awake()
     {
@@ -34,6 +41,11 @@ public class AudioManager : MonoBehaviour
     public void PlayEffect(AudioClip clip)
     {
         soundEffects.PlayOneShot(clip);
+    }
+
+    public void PlayEnemyEffect(AudioClip clip)
+    {
+        enemyEffect.PlayOneShot(clip);
     }
 
     public void StopEffect(AudioClip clip)

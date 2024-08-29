@@ -16,6 +16,10 @@ public class DungeonReset : MonoBehaviour
     [SerializeField] private int heartCollected;
     [SerializeField] private int brainCollected;
 
+    [SerializeField] private GameObject controlCanvas;
+    private bool isControlShow = false;
+
+
     private void Awake()
     {
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -51,6 +55,15 @@ public class DungeonReset : MonoBehaviour
         {
             enemy.SetActive(true);
         }
+
+
+
+        if (isControlShow == false) 
+        {
+            controlCanvas.SetActive(true);
+            Invoke("HideCanvas", 4f);
+        }
+        
     }
 
     private void OnDisable()
@@ -86,4 +99,15 @@ public class DungeonReset : MonoBehaviour
         levelManager.UpdateKidney(kidneyCollected);
         playerData.AddKidney();
     }
+
+    private void HideCanvas()
+    {
+        // Desactiva el canvas
+        controlCanvas.SetActive(false);
+
+        // Actualiza el estado
+        isControlShow = true;
+    }
+
+
 }

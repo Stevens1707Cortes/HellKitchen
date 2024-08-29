@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -24,9 +25,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-
     }
+
     public enum GameState
     {
         Playing,
@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         state = GameState.Playing;
+        AudioManager.Instance.PlayMusic(AudioManager.Instance.menuClip);
         //FindUIManager();
         HideAll();
     }
@@ -95,6 +96,7 @@ public class GameManager : MonoBehaviour
 
         if (nameEscene == "Main")
         {
+            AudioManager.Instance.StopMusic();
             uiUXManager.HideMainMenu();
             Time.timeScale = 1f;
             SceneManager.LoadScene(nameEscene);

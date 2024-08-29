@@ -60,6 +60,11 @@ public class E_Melee : Enemy
         }
     }
 
+    public override void Die()
+    {
+        AudioManager.Instance.PlayEnemyEffect(AudioManager.Instance.deathClip);
+        base.Die();
+    }
     private void QuitAttack()
     {
         attackCollider.SetActive(false);

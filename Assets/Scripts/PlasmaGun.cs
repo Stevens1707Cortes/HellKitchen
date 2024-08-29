@@ -5,15 +5,17 @@ public class PlasmaGun : Gun
     private float nextFire = 0f;
     private bool isRecoiling = false;
     private bool bulletUpdate = false; //Actualizar el dsño de la bala
-
+    private void Awake()
+    {
+        this.currentAmmo = 9;
+        this.maxAmmo = this.currentAmmo;
+    }
 
     //[SerializeField] private Transform gunTransform;
     void Start()
     {
         //Inicializar stats
         this.gunName = gameObject.name;
-        this.currentAmmo = 9;
-        this.maxAmmo = this.currentAmmo;
         this.fireRate = 2f;
 
         //
@@ -67,6 +69,7 @@ public class PlasmaGun : Gun
     public override void Shoot()
     {
         base.Shoot();
+        AudioManager.Instance.PlayEffect(AudioManager.Instance.plasmaClip);
         Recoil();
         currentAmmo--;
     }

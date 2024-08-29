@@ -15,6 +15,7 @@ public class LevelManager : MonoBehaviour
     public bool isDungeon;
     public bool isDayUpdated;
     public int day = 0;
+    public bool isEndDay = false;
 
     [Header("Dungeon Screen")]
     [SerializeField] GameObject foodCanvas;
@@ -43,9 +44,17 @@ public class LevelManager : MonoBehaviour
         if (foodCanvas != null) { foodCanvas.SetActive(false); }
         if (clientsCanvas != null) { clientsCanvas.SetActive(false); }
 
+        if (isKitchen)
+        {
+            AudioManager.Instance.PlayMusic(AudioManager.Instance.kitchenClip);
+        }
+
     }
 
-   
+    private void Update()
+    {
+        
+    }
 
     //Manejo del estado de los niveles
     public void ResetFood()
@@ -65,6 +74,8 @@ public class LevelManager : MonoBehaviour
 
     public void LoadDungeon(int dungeon)
     {
+        AudioManager.Instance.StopMusic();
+        AudioManager.Instance.PlayMusic(AudioManager.Instance.dungeonClip);
         dungeons[dungeon].SetActive(true);
         isDungeon = true;
     }
@@ -77,6 +88,8 @@ public class LevelManager : MonoBehaviour
 
     public void LoadKitchen()
     {
+        AudioManager.Instance.StopMusic();
+        AudioManager.Instance.PlayMusic(AudioManager.Instance.kitchenClip);
         kitchen.SetActive(true);
         isKitchen = true;
     }
@@ -127,24 +140,24 @@ public class LevelManager : MonoBehaviour
 
     public void ShowClients()
     {
-        if (clientsCanvas != null)
+        if (clientsCanvas != null && !isEndDay)
         {
             UpdateWrong(clientManager.wrongOrders);
             UpdateCorrect(clientManager.correctOrders);
             UpdateDay();
-            clientsCanvas.SetActive(true);
+            isEndDay = true;
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
+            clientsCanvas.SetActive(true);
         }
     }
 
     public void HideClients()
     {
-        clientsCanvas.SetActive(false);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         playerController.isKitchenVictory = false;
-
+        clientsCanvas.SetActive(false);
     }
 
     public void UpdateDay()

@@ -251,6 +251,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 527621924237899245}
     m_Modifications:
+    - target: {fileID: 259998381, guid: d0e6deded1dcf6b45910e4a07e0b2426, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+    - target: {fileID: 259998381, guid: d0e6deded1dcf6b45910e4a07e0b2426, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+    - target: {fileID: 259998381, guid: d0e6deded1dcf6b45910e4a07e0b2426, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8382264763473965492, guid: d0e6deded1dcf6b45910e4a07e0b2426, type: 3}
       propertyPath: m_Name
       value: PressE

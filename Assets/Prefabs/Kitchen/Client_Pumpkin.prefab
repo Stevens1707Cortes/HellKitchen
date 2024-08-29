@@ -88,7 +88,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foodNames: []
   foodOrder: 
-  clientTimer: 10
+  clientTimer: 15
 --- !u!114 &6434002529495230165
 MonoBehaviour:
   m_ObjectHideFlags: 0
