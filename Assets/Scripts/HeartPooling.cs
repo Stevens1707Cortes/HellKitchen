@@ -14,8 +14,9 @@ public class HeartPooling : IngredientPooling
     {
         playerData.RemoveHeart();
     }
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
         maxActivations = playerData.numberHeart;
         Initialize();
     }

@@ -18,6 +18,7 @@ public class IngredientLoot : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            AudioManager.Instance.PlayEffect(AudioManager.Instance.pickupClip);
             switch (nameIngredient)
             {
                 case "Kidney":

@@ -57,6 +57,9 @@ MonoBehaviour:
   shotgunClip: {fileID: 8300000, guid: b631606277f2275498d969852f66155e, type: 3}
   deathClip: {fileID: 8300000, guid: 9174bed9488a21242a160a7ff431afd5, type: 3}
   stoveClip: {fileID: 8300000, guid: 7513babce5dc50440a659d26c74298f8, type: 3}
+  happyClip: {fileID: 8300000, guid: 86550a53d10fd15479adc22c2dcbdd68, type: 3}
+  angryClip: {fileID: 8300000, guid: 60ee5e3e8f8869e469fc4b096f10dc47, type: 3}
+  pickupClip: {fileID: 8300000, guid: fe406d2bdce79414889b6ab345f75ed0, type: 3}
 --- !u!82 &1581854592180600134
 AudioSource:
   m_ObjectHideFlags: 0

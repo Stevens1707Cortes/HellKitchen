@@ -21,6 +21,8 @@ public class ClientBehavior : MonoBehaviour
     private bool isWrongOrder = false;
     private bool isTimeUp = false;
 
+    private Transform kidneyPool, heartPool, brainPool;
+
     //Evento para manejar la destruccion de cliente y quitarlo de las listas
     public delegate void ClientDestroyedAction();
     public event ClientDestroyedAction OnDestroyed;
@@ -43,6 +45,10 @@ public class ClientBehavior : MonoBehaviour
 
         clientOrder = GetComponent<ClientOrder>();
 
+        kidneyPool = GameObject.Find("KidneyPooling").transform;
+        heartPool = GameObject.Find("HeartPooling").transform;
+        brainPool = GameObject.Find("BrainPooling").transform;
+
 
     }
 
@@ -61,6 +67,7 @@ public class ClientBehavior : MonoBehaviour
         {
             if (other.gameObject.GetComponent<Pickup>().foodName == foodOrder)
             {
+                AudioManager.Instance.PlayEffect(AudioManager.Instance.happyClip);
                 Destroy(other.gameObject);
                 isAttended = true;
                 isWrongOrder = false;
@@ -68,6 +75,7 @@ public class ClientBehavior : MonoBehaviour
             }
             else
             {
+                AudioManager.Instance.PlayEffect(AudioManager.Instance.angryClip);
                 Destroy(other.gameObject);
                 isAttended = false;
                 isWrongOrder = true;
@@ -81,9 +89,21 @@ public class ClientBehavior : MonoBehaviour
         }
 
         if (other.gameObject.CompareTag("Transformable"))
-        {   
-            Destroy(other.gameObject);
+        {
+            AudioManager.Instance.PlayEffect(AudioManager.Instance.angryClip);
 
+            if (other.GetComponent<Pickup>().foodName == "Kidney")
+            {
+                other.transform.position = kidneyPool.transform.position;
+            }else if (other.GetComponent<Pickup>().foodName == "Heart")
+            {
+                other.transform.position = brainPool.transform.position;
+            }else if(other.GetComponent<Pickup>().foodName == "Brain")
+            {
+                other.transform.position= heartPool.transform.position;
+            }
+
+            isAttended = true;
             isWrongOrder = true;
             clientManager.SetWrongOrder();
 
@@ -115,6 +135,7 @@ public class ClientBehavior : MonoBehaviour
         if (isAttended == false)
         {
             clientManager.SetWrongOrder();
+            AudioManager.Instance.PlayEffect(AudioManager.Instance.angryClip);
         }
 
         lineManager.DequeueClient();

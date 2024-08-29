@@ -14,22 +14,25 @@ public class IngredientPooling : MonoBehaviour
     public TMP_Text countText;
     public int countNumber;
 
-    protected List<GameObject> ingredients;
+    [SerializeField] protected List<GameObject> ingredients;
     protected Quaternion originalRotation;
     [SerializeField] protected int activationCounts = 0;
 
     protected virtual void Awake()
     {
-        // Inicializar la lista para los ingredientes
-        ingredients = new List<GameObject>();
-
-        // Prellenar el pool con los ingredientes
-        for (int i = 0; i < ingredientsNumber; i++)
+        if (ingredients == null || ingredients.Count == 0)
         {
-            GameObject ingredient = Instantiate(ingredientPrefab);
-            ingredient.SetActive(false);
-            ingredient.transform.SetParent(transform); // Organizar los ingredientes en el pool
-            ingredients.Add(ingredient);
+            // Inicializar la lista para los ingredientes solo si no está inicializada
+            ingredients = new List<GameObject>();
+
+            // Prellenar el pool con los ingredientes
+            for (int i = 0; i < ingredientsNumber; i++)
+            {
+                GameObject ingredient = Instantiate(ingredientPrefab);
+                ingredient.SetActive(false);
+                ingredient.transform.SetParent(transform); // Organizar los ingredientes en el pool
+                ingredients.Add(ingredient);
+            }
         }
     }
 
@@ -40,11 +43,19 @@ public class IngredientPooling : MonoBehaviour
         countText.text = countNumber.ToString();
     }
 
+    protected virtual void OnEnable()
+    {
+        
+    }
+
     public virtual void Initialize()
     {
-        ActivateIngredient();
+        activationCounts = 0; // Reinicia el conteo de activaciones
+
+        ActivateIngredient(); // Activa al menos un ingrediente
         countNumber = maxActivations;
         countText.text = countNumber.ToString();
+
     }
 
     public virtual void SetMaxActivation(int activations)
@@ -62,11 +73,10 @@ public class IngredientPooling : MonoBehaviour
                 if (!ingredient.activeInHierarchy)
                 {
                     ingredient.SetActive(true);
-                    ingredient.transform.position = spawnPoint.position; // Posicionar en el punto de spawn
+                    ingredient.transform.position = spawnPoint.position; // Asegúrate de que esta línea esté correctamente asignando la posición del spawnPoint
+                    ingredient.transform.rotation = spawnPoint.rotation; // Asegúrate también de que la rotación sea correcta
                     originalRotation = ingredient.transform.rotation;
                     activationCounts++;
-                    //countNumber--;
-                    //countText.text = countNumber.ToString();
                     return ingredient;
                 }
             }

@@ -11,7 +11,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip menuClip, kitchenClip, dungeonClip;
 
     [Header("SFX Clips")]
-    public AudioClip plasmaClip, shotgunClip, deathClip, stoveClip;
+    public AudioClip plasmaClip, shotgunClip, deathClip, stoveClip, happyClip, angryClip, pickupClip;
 
     private void Awake()
     {

@@ -15,8 +15,9 @@ public class KidneyPooling : IngredientPooling
         playerData.RemoveKidney();
     }
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
         maxActivations = playerData.numberKidney;
         Initialize();
     }

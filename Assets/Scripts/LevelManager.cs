@@ -68,7 +68,16 @@ public class LevelManager : MonoBehaviour
         GameObject[] activeIngredient = GameObject.FindGameObjectsWithTag("Transformable");
         foreach (var ingredient in activeIngredient)
         {
-            Destroy(ingredient);
+            ingredient.SetActive(false);
+        }
+    }
+
+    public void ResetIngredients()
+    {
+        GameObject[] activeIngredient = GameObject.FindGameObjectsWithTag("Transformable");
+        foreach (var ingredient in activeIngredient)
+        {
+            ingredient.SetActive(true);
         }
     }
 

@@ -12,8 +12,9 @@ public class BrainPooling : IngredientPooling
     {
         playerData.RemoveBrain();
     }
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
         maxActivations = playerData.numberBrain;
         Initialize();
     }
