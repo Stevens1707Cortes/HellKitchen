@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
     private bool isChangingWeapon = false;
     public bool isVictory = false;
     public bool isPaused = false;
+    public bool isKitchenVictory = false;
 
     void Start()
     {
@@ -147,24 +148,24 @@ public class PlayerController : MonoBehaviour
         }
 
         //Pause
-        if (Input.GetKeyDown(KeyCode.Tab) && !isPaused)
-        {
-            isPaused = true;
+        //if (Input.GetKeyDown(KeyCode.Tab) && !isPaused)
+        //{
+        //    isPaused = true;
 
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+        //    Cursor.visible = true;
+        //    Cursor.lockState = CursorLockMode.None;
 
-            GameManager.Instance.PauseGame();
-        }
-        else if (Input.GetKeyDown(KeyCode.Tab) && isPaused) 
-        { 
-            isPaused = false;
+        //    levelManager.ShowClients();
+        //}
+        //else if (Input.GetKeyDown(KeyCode.Tab) && isPaused)
+        //{
+        //    isPaused = false;
 
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+        //    Cursor.visible = false;
+        //    Cursor.lockState = CursorLockMode.Locked;
 
-            GameManager.Instance.ResumeGame();
-        }
+        //    levelManager.HideClients();
+        //}
 
         // Si hay un empuje activo, aplicarlo
         if (pushTime > 0)
@@ -174,7 +175,10 @@ public class PlayerController : MonoBehaviour
         }
 
         //Comprobar condicion de victoria 1
-        Victory();
+        VictoryKitchen();
+
+        //Comprobar condicion de victoria 2
+        DungeonVictory();
 
         //Comprobar condicion de derrota 1
         GameOver();
@@ -225,25 +229,28 @@ public class PlayerController : MonoBehaviour
         isDead = true;
     }
 
-    public void Victory()
+    public void DungeonVictory()
     {
         if (enemyManager != null)
         {
             //Conteo de enemigos en el nivel
             if (enemyManager.GetActiveEnemyCount() <= 0)
             {
-                isVictory = true;
-
-                GameManager.Instance.Victory();
+                //Mostrar resumen
+                levelManager.ShowFood();
             }
         }
+    }
 
+    public void VictoryKitchen()
+    {
         if (clientManager != null)
         {
-            if (clientManager.GetActiveClientCount() <= 0 && clientManager.GetCorrectOrderCount() > clientManager.GetWrongOrderCount())
+            if (clientManager.GetActiveClientCount() <= 0 && clientManager.GetCorrectOrderCount() > clientManager.GetWrongOrderCount() && isKitchenVictory == false)
             {
-                isVictory = true;
-                GameManager.Instance.Victory();
+                levelManager.ShowClients();
+                isKitchenVictory = true;
+
             }else if (clientManager.GetActiveClientCount() <= 0 && clientManager.GetCorrectOrderCount() < clientManager.GetWrongOrderCount())
             {
                 isVictory = false;
@@ -256,8 +263,6 @@ public class PlayerController : MonoBehaviour
     {
         if (isDead)
         {
-            //Pantalla de derrota
-
             GameManager.Instance.GameOver();
         }
     }
@@ -289,6 +294,22 @@ public class PlayerController : MonoBehaviour
         gunCanvas2.SetActive(false);
         clientsCanvas1.SetActive(false);
         clientsCanvas2.SetActive(false);
+    }
+
+    public void HideCurrentWeapon()
+    {
+        if (weapons[currentWeaponIndex] != null)
+        {
+            weapons[currentWeaponIndex].SetActive(false);
+        }
+    }
+
+    public void ShowCurrentWeapon()
+    {
+        if (weapons[currentWeaponIndex] != null)
+        {
+            weapons[currentWeaponIndex].SetActive(true);
+        }
     }
 
     //Colisiones

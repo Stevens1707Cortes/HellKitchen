@@ -1,9 +1,10 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private GameObject victoryCanvas, defeatCanvas, controlCanvas, creditsCanvas, mainMenuCanvas, pauseCanvas;
-
+    [SerializeField] private GameObject victoryCanvas, defeatCanvas, controlCanvas, creditsCanvas, mainMenuCanvas;
 
     private void Start()
     {
@@ -13,8 +14,11 @@ public class UIManager : MonoBehaviour
 
         if (controlCanvas != null) { controlCanvas.SetActive(false); }
 
-        if (pauseCanvas != null) { pauseCanvas.SetActive(false); }
+    }
 
+    private void Update()
+    {
+        
     }
 
     public void ShowMainMenu()
@@ -71,15 +75,5 @@ public class UIManager : MonoBehaviour
         {
             defeatCanvas.SetActive(false);
         }
-    }
-
-    public void ShowPause()
-    {
-        if (pauseCanvas != null) { pauseCanvas.SetActive(true); }
-    }
-
-    public void HidePause()
-    {
-        if (pauseCanvas != null) { pauseCanvas.SetActive(false); }
     }
 }

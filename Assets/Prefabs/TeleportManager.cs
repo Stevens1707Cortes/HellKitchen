@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TeleportManager : MonoBehaviour
@@ -9,6 +8,12 @@ public class TeleportManager : MonoBehaviour
     [SerializeField] private Transform loadPortal;
     [SerializeField] private LevelManager levelManager;
 
+    [SerializeField] private GameObject loadingScreen;
+
+    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject HudPlayer;
+    private PlayerController playerController;
+    
     [SerializeField] private float teleportDelay = 0.5f;
 
     private Transform playerTransform;
@@ -18,7 +23,8 @@ public class TeleportManager : MonoBehaviour
 
     private void Start()
     {
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        playerTransform = player.transform;
+        playerController = player.GetComponent<PlayerController>();
     }
 
     public void StartTeleport()
@@ -30,11 +36,15 @@ public class TeleportManager : MonoBehaviour
     {
         isTeleporting = true;
 
+        // Ocultar HUD y arma actual
+        HudPlayer.SetActive(false);
+        playerController.HideCurrentWeapon();
+
         // Mostrar pantalla de carga
-        //if (loadingScreen != null)
-        //{
-        //    loadingScreen.SetActive(true);
-        //}
+        if (loadingScreen != null)
+        {
+            loadingScreen.SetActive(true);
+        }
 
         yield return new WaitForSeconds(0.2f);
 
@@ -62,11 +72,15 @@ public class TeleportManager : MonoBehaviour
             playerTransform.position = kitchenPortal.position;
         }
 
-        // Ocultar la pantalla de carga
-        //if (loadingScreen != null)
-        //{
-        //    loadingScreen.SetActive(false);
-        //}
+        //Ocultar la pantalla de carga
+        if (loadingScreen != null)
+        {
+            loadingScreen.SetActive(false);
+        }
+
+        // Mostrar HUD y arma actual
+        HudPlayer.SetActive(true);
+        playerController.ShowCurrentWeapon();
 
         isTeleporting = false;
     }
@@ -79,5 +93,37 @@ public class TeleportManager : MonoBehaviour
     public void SetKitchenPortal(bool isKitchen)
     {
         isKitchenPortal = isKitchen;
+    }
+
+    //Metodo para usar en el boton
+    public void TeleportToKitchen()
+    {
+        StartCoroutine(TeleportToKitchenCoroutine());
+    }
+
+    private IEnumerator TeleportToKitchenCoroutine()
+    {
+        isTeleporting = true;
+
+        if (loadingScreen != null)
+        {
+            loadingScreen.SetActive(true);
+        }
+
+        yield return new WaitForSeconds(teleportDelay);
+
+        levelManager.UnloadDungeon(currentPortalIndex);
+        levelManager.LoadKitchen();
+
+        playerTransform.position = kitchenPortal.position;
+
+        if (loadingScreen != null)
+        {
+            loadingScreen.SetActive(false);
+        }
+
+        isTeleporting = false;
+
+        levelManager.HideFood();
     }
 }

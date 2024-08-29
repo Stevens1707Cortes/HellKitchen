@@ -13,7 +13,7 @@ public class ClientSpawner : MonoBehaviour
     private bool isStart = true;
 
     public int totalClientsToSpawn;
-    private List<GameObject> activeClients = new List<GameObject>(); 
+    public List<GameObject> activeClients = new List<GameObject>(); 
 
     void Start()
     {

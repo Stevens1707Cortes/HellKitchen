@@ -62,7 +62,6 @@ public class GameManager : MonoBehaviour
     //Cambiar a la escena de MainMenu
     public void LoadMainMenu()
     {
-        uiUXManager.HidePause();
         uiUXManager.HideVictory();
         uiUXManager.HideGameOver();
         uiUXManager.ShowMainMenu();
@@ -74,35 +73,26 @@ public class GameManager : MonoBehaviour
     // Funci�n para cambiar a la escena 
     public void LoadScene(string nameEscene)
     {
-        uiUXManager.HideMainMenu();
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(nameEscene);
-        state = GameState.Playing;
+        if (nameEscene == "Main")
+        {
+            uiUXManager.HideMainMenu();
+            Time.timeScale = 1f;
+            SceneManager.LoadScene(nameEscene);
+            state = GameState.Playing;
+        } 
     }
 
     //Pausar el juego
-    public void PauseGame()
-    {
-        state = GameState.Paused;
-        uiUXManager.ShowPause();
-        Time.timeScale = 0f;
-        state = GameState.Paused;
-    }
+    
 
     //Reanudar el juego
-    public void ResumeGame()
-    {
-        uiUXManager.HidePause();
-        Time.timeScale = 1f;
-        state = GameState.Playing;
-    }
+    
 
     //Reiniciar la escena actual
     public void RestartScene()
     {
         state = GameState.Playing;
 
-        uiUXManager.HidePause();
         uiUXManager.HideGameOver();
         uiUXManager.HideVictory();
         uiUXManager.HideMainMenu();
@@ -116,7 +106,6 @@ public class GameManager : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
-        uiUXManager.HidePause();
         uiUXManager.ShowGameOver();
         //state = GameState.GameOver;
         Time.timeScale = 0f;
@@ -127,7 +116,6 @@ public class GameManager : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
-        uiUXManager.HidePause();
         uiUXManager.ShowVictory();
         Time.timeScale = 0f;
     }

@@ -4,6 +4,8 @@ using UnityEngine;
 public class ClientManager : MonoBehaviour
 {
     [SerializeField] private ClientLineManager lineManager;
+    [SerializeField] private ClientSpawner clientSpawner;
+
     private HashSet<GameObject> activeClients = new HashSet<GameObject>();
     public int correctOrders;
     public int wrongOrders;
@@ -23,6 +25,7 @@ public class ClientManager : MonoBehaviour
         correctOrders = 0;
         wrongOrders = 0;
 
+        clientSpawner.activeClients.Clear();
         activeClients.Clear();
 
         GameObject[] clients = GameObject.FindGameObjectsWithTag("Client");

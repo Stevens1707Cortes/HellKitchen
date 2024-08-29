@@ -8,6 +8,7 @@ public class DungeonReset : MonoBehaviour
     private CharacterController characterController;
     [SerializeField] PlayerController playerController;
     [SerializeField] PlayerData playerData;
+    [SerializeField] LevelManager levelManager;
 
     GameObject[] enemies;
 
@@ -31,6 +32,10 @@ public class DungeonReset : MonoBehaviour
         heartCollected = 0;
         brainCollected = 0;
 
+        levelManager.UpdateBrain(brainCollected);
+        levelManager.UpdateHeart(heartCollected);
+        levelManager.UpdateKidney(kidneyCollected);
+
 
         playerController = player.GetComponent<PlayerController>();
         characterController = player.GetComponent<CharacterController>();
@@ -52,6 +57,9 @@ public class DungeonReset : MonoBehaviour
     {
         characterController = player.GetComponent<CharacterController>();
 
+        GameObject[] ingredients = GameObject.FindGameObjectsWithTag("Transformable");
+        foreach (var ingredient in ingredients) { Destroy(ingredient); }
+
         playerController.ReturnInitialWeapon();
         playerController.enemyManager = null;
         characterController.radius = 0.5f;
@@ -61,18 +69,21 @@ public class DungeonReset : MonoBehaviour
     public void AddBrain()
     {
         brainCollected++;
+        levelManager.UpdateBrain(brainCollected);
         playerData.AddBrain();
     }
 
     public void AddHeart()
     {
         heartCollected++;
+        levelManager.UpdateHeart(heartCollected);
         playerData.AddHeart();
     }
 
     public void AddKidney()
     {
         kidneyCollected++;
+        levelManager.UpdateKidney(kidneyCollected);
         playerData.AddKidney();
     }
 }

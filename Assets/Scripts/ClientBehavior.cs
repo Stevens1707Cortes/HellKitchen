@@ -42,6 +42,7 @@ public class ClientBehavior : MonoBehaviour
 
         clientOrder = GetComponent<ClientOrder>();
 
+
     }
 
     private void Update()
