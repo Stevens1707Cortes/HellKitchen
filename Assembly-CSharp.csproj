@@ -188,6 +188,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\Art\PSXShaderKit\Shaders\PSX-Unlit Transparent.shader" />
+    <None Include="Assets\Art\Customizable Skybox\Stylized Sky\Shaders\Stylized Sky.shader" />
     <None Include="Assets\Art\PSXShaderKit\Shaders\PSX-Unlit.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\Art\VFX\ParticlePack\EffectExamples\Misc Effects\Shaders\FireFly.shader" />
