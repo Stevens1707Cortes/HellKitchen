@@ -51,6 +51,18 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 0f;
         }
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            if (state == GameState.Playing)
+            {
+                PauseGame();
+            }
+            else if (state == GameState.Paused)
+            {
+                ResumeGame();
+            }
+        }
     }
 
     private IEnumerator ShowLoadingScreen()
@@ -69,6 +81,7 @@ public class GameManager : MonoBehaviour
     {
         uiUXManager.HideGameOver();
         uiUXManager.HideVictory();
+        uiUXManager.HidePauseMenu();
     }
 
     //Comprobar las escena actual
@@ -81,8 +94,11 @@ public class GameManager : MonoBehaviour
     //Cambiar a la escena de MainMenu
     public void LoadMainMenu()
     {
+        StartCoroutine(ShowLoadingScreen());
+
         uiUXManager.HideVictory();
         uiUXManager.HideGameOver();
+        uiUXManager.HidePauseMenu();
         uiUXManager.ShowMainMenu();
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
@@ -98,17 +114,35 @@ public class GameManager : MonoBehaviour
         {
             AudioManager.Instance.StopMusic();
             uiUXManager.HideMainMenu();
+            uiUXManager.HidePauseMenu();
             Time.timeScale = 1f;
             SceneManager.LoadScene(nameEscene);
             state = GameState.Playing;
         } 
     }
 
-    //Pausar el juego
-    
+    // Pausar el juego
+    public void PauseGame()
+    {
+        state = GameState.Paused;
+        Time.timeScale = 0f;
+        uiUXManager.ShowPauseMenu();
+        AudioManager.Instance.PauseMusic(); // Si tienes música que debe pausarse
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
 
-    //Reanudar el juego
-    
+    // Reanudar el juego
+    public void ResumeGame()
+    {
+        state = GameState.Playing;
+        Time.timeScale = 1f;
+        uiUXManager.HidePauseMenu();
+        AudioManager.Instance.ResumeMusic(); // Si tienes música que debe reanudarse
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
 
     //Reiniciar la escena actual
     public void RestartScene()
@@ -118,6 +152,7 @@ public class GameManager : MonoBehaviour
         uiUXManager.HideGameOver();
         uiUXManager.HideVictory();
         uiUXManager.HideMainMenu();
+        uiUXManager.HidePauseMenu();
         Time.timeScale = 1f;
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.name);

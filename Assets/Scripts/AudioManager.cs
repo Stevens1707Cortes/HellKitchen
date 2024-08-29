@@ -38,6 +38,16 @@ public class AudioManager : MonoBehaviour
         music.Stop();
     }
 
+    public void PauseMusic()
+    {
+        music.Pause();
+    }
+
+    public void ResumeMusic()
+    {
+        music.UnPause();
+    }
+
     public void PlayEffect(AudioClip clip)
     {
         soundEffects.PlayOneShot(clip);

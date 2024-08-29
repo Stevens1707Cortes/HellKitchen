@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private GameObject victoryCanvas, defeatCanvas, controlCanvas, creditsCanvas, mainMenuCanvas;
+    [SerializeField] private GameObject victoryCanvas, defeatCanvas, controlCanvas, creditsCanvas, mainMenuCanvas, pauseCanvas;
 
     private void Start()
     {
@@ -12,7 +12,7 @@ public class UIManager : MonoBehaviour
         //GameManager.Instance.HideAll();
         if (controlCanvas != null) { controlCanvas.SetActive(false); }
 
-        if (controlCanvas != null) { controlCanvas.SetActive(false); }
+        if (pauseCanvas != null) { pauseCanvas.SetActive(false); }
 
     }
 
@@ -75,5 +75,15 @@ public class UIManager : MonoBehaviour
         {
             defeatCanvas.SetActive(false);
         }
+    }
+
+    public void ShowPauseMenu()
+    {
+        if (pauseCanvas != null) { pauseCanvas.SetActive(true); }
+    }
+
+    public void HidePauseMenu()
+    {
+        if (pauseCanvas != null) { pauseCanvas.SetActive(false); }
     }
 }
